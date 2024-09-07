@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebGPU</title>
+    <script src="js/app.js" type="module"></script>
+    <style>
+        html, body {
+            margin: 0;
+            background: black;
+            position: relative;
+        }
+        canvas {
+            height: 100vh;
+            width: 100vw;
+            position: absolute;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+    <div id="error" class="hidden">
+        <div>Your browser does not support WebGPU or it is not enabled. More info: <a
+                href="http://webgpu.io">webgpu.io</a></div>
+    </div>
+</body>
+
+</html>
