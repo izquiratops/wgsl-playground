@@ -5,18 +5,14 @@ function main() {
     const canvas = document.getElementById('canvas') as HTMLCanvasElement;
     const context = canvas.getContext('webgpu');
 
-    console.debug('hey!')
-
     if (context && 'gpu' in navigator) {
-        navigator.gpu.requestAdapter()
-            .then(adapter => {
-                if (!adapter) {
-                    throw Error('Adapter not found');
-                }
-                adapter.requestDevice().then((device) => initApp(device, canvas, context));
-                adapter.features.forEach(console.log);
-            })
-            .catch(showError);
+        navigator.gpu.requestAdapter().then(adapter => {
+            if (!adapter) {
+                throw Error('Adapter not found');
+            }
+            adapter.requestDevice().then((device) => initApp(device, canvas, context));
+            adapter.features.forEach(console.log);
+        })
     } else {
         throw Error('Context not found');
     }
@@ -124,14 +120,14 @@ function initApp(device: GPUDevice, canvas: HTMLCanvasElement, context: GPUCanva
     requestAnimationFrame(frame);
 }
 
-function showError() {
+function showError(error: Error) {
+    console.error(error.message);
     const errorElement = document.getElementById('error')!;
     errorElement.classList.remove('hidden');
 }
 
 try {
     main();
-} catch (err) {
-    showError();
-    console.error(err);
+} catch (error) {
+    showError(error);
 }
