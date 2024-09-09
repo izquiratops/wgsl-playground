@@ -1,3 +1,5 @@
+// Fragment shader from: https://codepen.io/munrocket/pen/qBreZya
+
 struct Uniforms { resolution: vec2f, time: f32 };
 @binding(0) @group(0) var<uniform> U : Uniforms;
 

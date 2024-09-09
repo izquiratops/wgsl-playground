@@ -4,31 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebGPU</title>
+    <title>WebGPU Editor 🎨</title>
     <script src="js/app.js" type="module"></script>
-    <style>
-        html, body {
-            margin: 0;
-            background: black;
-            position: relative;
-        }
-        canvas {
-            height: 100vh;
-            width: 100vw;
-            position: absolute;
-        }
-        .hidden {
-            display: none;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <canvas id="canvas"></canvas>
-    <div id="error" class="hidden">
-        <div>Your browser does not support WebGPU or it is not enabled. More info: <a
-                href="http://webgpu.io">webgpu.io</a></div>
+    <div class="horizontal-split-container">
+        <canvas></canvas>
+        <div class="split-slider"></div>
+        <div class="editor-container">
+            <textarea id="fragment-editor"></textarea>
+        </div>
     </div>
+
+    <dialog id="error">
+        <p>
+            Your browser doesn't support WebGPU or it's not enabled.<br>
+            More info at <a href="https://webgpu.io">webgpu.io</a>
+        </p>
+    </dialog>
 </body>
 
 </html>
