@@ -1,55 +1,18 @@
-export class Renderer {
+import { BufferUsage, textureFormat } from "./constants";
+
+class Renderer {
     constructor(
         private device: GPUDevice,
         private canvas: HTMLCanvasElement,
         private context: GPUCanvasContext,
     ) {}
 
-    initialize(vertexShaderWgslCode: string, fragmentShaderWgslCode: string) {
-        const contextFormat = 'bgra8unorm';
-
+    render(pipeline: GPURenderPipeline) {
         this.context.configure({
             device: this.device,
-            format: contextFormat,
+            format: textureFormat,
             alphaMode: 'opaque'
         });
-
-        const pipeline = this.device.createRenderPipeline({
-            layout: 'auto',
-            vertex: {
-                module: this.device.createShaderModule({
-                    code: vertexShaderWgslCode,
-                }),
-                entryPoint: 'main',
-            },
-            fragment: {
-                module: this.device.createShaderModule({
-                    code: fragmentShaderWgslCode,
-                }),
-                entryPoint: 'main',
-                targets: [
-                    {
-                        format: contextFormat,
-                    },
-                ],
-            },
-            primitive: {
-                topology: 'triangle-list',
-            },
-        });
-
-        const BufferUsage = {
-            MAP_READ: 0x0001,
-            MAP_WRITE: 0x0002,
-            COPY_SRC: 0x0004,
-            COPY_DST: 0x0008,
-            INDEX: 0x0010,
-            VERTEX: 0x0020,
-            UNIFORM: 0x0040,
-            STORAGE: 0x0080,
-            INDIRECT: 0x0100,
-            QUERY_RESOLVE: 0x0200,
-        };
 
         const uniformsBuffer = this.device.createBuffer({
             size: 4 * 4,
@@ -73,7 +36,7 @@ export class Renderer {
             const commandEncoder = this.device.createCommandEncoder();
             const textureView = this.context.getCurrentTexture().createView();
 
-            const renderPassDescriptor = {
+            const renderPassDescriptor: any = {
                 colorAttachments: [
                     {
                         view: textureView,
@@ -105,4 +68,31 @@ export class Renderer {
 
         requestAnimationFrame(frame);
     }
+
+    run(vertexShaderWgslCode: string, fragmentShaderWgslCode: string) {
+        const pipeline = this.device.createRenderPipeline({
+            layout: 'auto',
+            vertex: {
+                module: this.device.createShaderModule({
+                    code: vertexShaderWgslCode,
+                }),
+                entryPoint: 'main',
+            },
+            fragment: {
+                module: this.device.createShaderModule({
+                    code: fragmentShaderWgslCode,
+                }),
+                entryPoint: 'main',
+                targets: [{ format: textureFormat },
+                ],
+            },
+            primitive: {
+                topology: 'triangle-list',
+            },
+        });
+
+        this.render(pipeline);
+    }
 }
+
+export default Renderer;

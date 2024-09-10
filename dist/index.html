@@ -11,19 +11,17 @@
 
 <body>
     <div class="horizontal-split-container">
-        <canvas></canvas>
-        <div class="split-slider"></div>
         <div class="editor-container">
+            <upper-toolbar></upper-toolbar>
             <textarea id="fragment-editor"></textarea>
+        </div>
+        <vertical-slider></vertical-slider>
+        <div class="canvas-wrapper">
+            <canvas></canvas>
         </div>
     </div>
 
-    <dialog id="error">
-        <p>
-            Your browser doesn't support WebGPU or it's not enabled.<br>
-            More info at <a href="https://webgpu.io">webgpu.io</a>
-        </p>
-    </dialog>
+    <error-modal></error-modal>
 </body>
 
 </html>

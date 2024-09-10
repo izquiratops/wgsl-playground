@@ -1,14 +1,18 @@
 {
     "compilerOptions": {
-        "alwaysStrict": true,
+        "types": ["@webgpu/types"],
+        "target": "ES2015",
+        "strict": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "strictNullChecks": true,
         "allowUnreachableCode": false,
         "noImplicitAny": true,
-        "strictNullChecks": true,
         "noImplicitReturns": true,
         "noUncheckedIndexedAccess": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "types": ["@webgpu/types"],
     },
     "include": [
         "./**/*.ts"
