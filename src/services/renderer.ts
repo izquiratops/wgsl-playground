@@ -1,4 +1,4 @@
-import { BufferUsage, textureFormat } from "./constants";
+import { BufferUsage, textureFormat } from "../constants";
 
 class Renderer {
     constructor(

@@ -1,4 +1,4 @@
-import { shared } from "../main";
+import { shared } from "../services/shared";
 
 class UpperToolbar extends HTMLElement {
     private drawButtonEl!: HTMLButtonElement;

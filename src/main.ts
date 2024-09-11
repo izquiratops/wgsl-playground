@@ -1,9 +1,5 @@
-import Editor from './editor';
-import { Shared } from './types';
-
+import Editor from './services/editor';
 import './components';
-
-const shared: Shared = {};
 
 async function main() {
     const editor = new Editor();
@@ -17,5 +13,3 @@ async function main() {
 }
 
 main();
-
-export { shared };

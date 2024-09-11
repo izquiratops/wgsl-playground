@@ -1,8 +1,8 @@
-import { shared } from './main';
 import Renderer from './renderer';
+import { shared } from './shared';
 
-import defaultFragmentShader from './shaders/fragment.wgsl';
-import defaultVertexShader from './shaders/vertex.wgsl';
+import defaultFragmentShader from '../shaders/fragment.wgsl';
+import defaultVertexShader from '../shaders/vertex.wgsl';
 
 class Editor {
     private canvasEl = document.querySelector('canvas') as HTMLCanvasElement;
@@ -10,6 +10,7 @@ class Editor {
     constructor() {
         shared.vertexEditor = document.querySelector('#vertex-editor') as HTMLTextAreaElement;
         shared.fragmentEditor = document.querySelector('#fragment-editor') as HTMLTextAreaElement;
+
         shared.vertexEditor.value = defaultVertexShader;
         shared.fragmentEditor.value = defaultFragmentShader;
     }

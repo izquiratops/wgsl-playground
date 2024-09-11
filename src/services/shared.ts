@@ -1,7 +1,11 @@
 import Renderer from "./renderer";
 
-export type Shared = {
+type Shared = {
     renderer?: Renderer;
     fragmentEditor?: HTMLTextAreaElement;
     vertexEditor?: HTMLTextAreaElement;
 };
+
+const shared: Shared = {};
+
+export { shared }
