@@ -8,7 +8,9 @@ class Editor {
     private canvasEl = document.querySelector('canvas') as HTMLCanvasElement;
 
     constructor() {
+        shared.vertexEditor = document.querySelector('#vertex-editor') as HTMLTextAreaElement;
         shared.fragmentEditor = document.querySelector('#fragment-editor') as HTMLTextAreaElement;
+        shared.vertexEditor.value = defaultVertexShader;
         shared.fragmentEditor.value = defaultFragmentShader;
     }
 

@@ -1,5 +1,20 @@
-html, body {
+:root {
+    --spacing-s: 8px;
+    --spacing-m: 16px;
+    --spacing-l: 32px;
+    --theme-detail: #FF7D29;
+    --theme-primary: #FFBF78;
+    --theme-secondary: #FFEEA9;
+    --theme-bg: #FEFFD2;
+    --theme-stripes-thickness: 72px;
+    --default-editor-width: 600px;
+}
+
+html,
+body {
     margin: 0;
+    font-family: Helvetica, sans-serif;
+    background: black;
 }
 
 canvas {
@@ -12,8 +27,10 @@ textarea {
     resize: none;
     outline: none;
     border: 0;
+    padding: 0;
     width: 100%;
     height: 100%;
+    background: var(--theme-bg);
 }
 
 vertical-slider {
@@ -22,17 +39,50 @@ vertical-slider {
     flex: 10px 0 0;
 }
 
+upper-toolbar {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: var(--spacing-m);
+    padding-inline: var(--spacing-m);
+}
+
+dialog {
+    background: var(--theme-bg);
+    border-color: var(--theme-primary);
+}
+
+.diagonal-stripes {
+    border-bottom: 4px solid var(--theme-detail);
+    background-color: var(--theme-bg);
+    background: repeating-linear-gradient(-45deg,
+            var(--theme-primary),
+            var(--theme-primary) var(--theme-stripes-thickness),
+            var(--theme-secondary) var(--theme-stripes-thickness),
+            var(--theme-secondary) calc(var(--theme-stripes-thickness) * 2));
+}
+
 .horizontal-split-container {
     display: flex;
     height: 100vh;
-    width: 100vw;
+    overflow: hidden;
 }
 
 .editor-container {
-    width: 50%;
+    width: var(--default-editor-width);
+    display: grid;
+    grid-template-rows: 42px repeat(2, 1fr);
+    align-items: center;
 }
 
 .canvas-wrapper {
     position: relative;
     flex: auto 1 1;
+}
+
+@media (max-width: 1200px) {
+    .editor-container {
+        width: 50%;
+    }
 }

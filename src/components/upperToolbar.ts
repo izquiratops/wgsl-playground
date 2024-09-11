@@ -1,22 +1,27 @@
 import { shared } from "../main";
-// import defaultVertexShader from "../shaders/vertex.wgsl";
 
 class UpperToolbar extends HTMLElement {
     private drawButtonEl!: HTMLButtonElement;
 
     private draw = () => {
-        const { renderer, fragmentEditor } = shared;
-        if (!renderer || !fragmentEditor) {
-            return;
+        const { renderer, fragmentEditor, vertexEditor } = shared;
+
+        if (!renderer || !fragmentEditor || !vertexEditor) {
+            throw Error("Couldn't draw successfully");
         }
-        
-        // TODO!
-        // renderer.run(fragmentEditor.value, defaultVertexShader);
+
+        renderer.run(
+            fragmentEditor.value,
+            vertexEditor.value,
+        );
     }
 
     constructor() {
         super();
-        this.innerHTML = `<button id="draw">Draw</button>`;
+        this.innerHTML = `
+        <h3>🎨 WGSL Playground</h3>
+        <button id="draw" title="Shortcut: Ctrl + Enter">Draw ✏️</button>
+        `;
     }
 
     connectedCallback() {
