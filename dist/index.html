@@ -4,17 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebGPU Editor 🎨</title>
+    <title>WGSL Playground</title>
     <script src="js/app.js" type="module"></script>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 
 <body>
     <div class="horizontal-split-container">
         <div class="editor-container">
             <upper-toolbar class="diagonal-stripes"></upper-toolbar>
-            <textarea id="vertex-editor"></textarea>
-            <textarea id="fragment-editor"></textarea>
+            <section id="vertex-editor"></section>
+            <section id="fragment-editor"></section>
         </div>
         <vertical-slider></vertical-slider>
         <div class="canvas-wrapper">

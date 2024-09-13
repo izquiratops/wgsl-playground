@@ -1,4 +1,7 @@
+import { EditorView, basicSetup } from 'codemirror';
 import Renderer from './renderer';
+
+import { oneDark } from '../utils/oneDark';
 import { shared } from './shared';
 
 import defaultFragmentShader from '../shaders/fragment.wgsl';
@@ -8,11 +11,17 @@ class Editor {
     private canvasEl = document.querySelector('canvas') as HTMLCanvasElement;
 
     constructor() {
-        shared.vertexEditor = document.querySelector('#vertex-editor') as HTMLTextAreaElement;
-        shared.fragmentEditor = document.querySelector('#fragment-editor') as HTMLTextAreaElement;
+        shared.vertexEditor = new EditorView({
+            doc: defaultVertexShader,
+            extensions: [basicSetup, oneDark],
+            parent: document.querySelector('#vertex-editor') as HTMLDivElement
+        });
 
-        shared.vertexEditor.value = defaultVertexShader;
-        shared.fragmentEditor.value = defaultFragmentShader;
+        shared.fragmentEditor = new EditorView({
+            doc: defaultFragmentShader,
+            extensions: [basicSetup, oneDark],
+            parent: document.querySelector('#fragment-editor') as HTMLDivElement
+        });
     }
 
     async initializeWebGPU(): Promise<void> {
@@ -27,7 +36,7 @@ class Editor {
 
             const device = await adapter.requestDevice()
             shared.renderer = new Renderer(device, this.canvasEl, context);
-            shared.renderer.run(defaultVertexShader, defaultFragmentShader);
+            shared.renderer.render();
 
             adapter.features.forEach(console.log);
         } else {

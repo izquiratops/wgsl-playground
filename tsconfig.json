@@ -2,6 +2,7 @@
     "compilerOptions": {
         "types": ["@webgpu/types"],
         "target": "ES2015",
+        "moduleResolution": "node",
         "strict": true,
         "esModuleInterop": true,
         "skipLibCheck": true,

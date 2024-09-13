@@ -2,10 +2,10 @@
     --spacing-s: 8px;
     --spacing-m: 16px;
     --spacing-l: 32px;
-    --theme-detail: #FF7D29;
-    --theme-primary: #FFBF78;
-    --theme-secondary: #FFEEA9;
-    --theme-bg: #FEFFD2;
+    --theme-detail: #343131;
+    --theme-primary: #E2BFD9;
+    --theme-secondary: #C8A1E0;
+    --theme-bg: #282C34;
     --theme-stripes-thickness: 72px;
     --default-editor-width: 600px;
 }
@@ -15,6 +15,12 @@ body {
     margin: 0;
     font-family: Helvetica, sans-serif;
     background: black;
+}
+
+h3 {
+    margin-block: var(--spacing-s);
+    color: white;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
 }
 
 canvas {
@@ -40,7 +46,6 @@ vertical-slider {
 }
 
 upper-toolbar {
-    height: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -50,30 +55,39 @@ upper-toolbar {
 
 dialog {
     background: var(--theme-bg);
-    border-color: var(--theme-primary);
+    border: 8px solid black;
+    color: white;
+    outline: none;
 }
 
 .diagonal-stripes {
-    border-bottom: 4px solid var(--theme-detail);
+    opacity: 1;
     background-color: var(--theme-bg);
-    background: repeating-linear-gradient(-45deg,
-            var(--theme-primary),
-            var(--theme-primary) var(--theme-stripes-thickness),
-            var(--theme-secondary) var(--theme-stripes-thickness),
-            var(--theme-secondary) calc(var(--theme-stripes-thickness) * 2));
+    background: repeating-linear-gradient(-45deg, var(--theme-primary), var(--theme-primary) 20px, var(--theme-secondary) 20px, var(--theme-secondary) 40px);
 }
 
 .horizontal-split-container {
     display: flex;
     height: 100vh;
-    overflow: hidden;
 }
 
 .editor-container {
     width: var(--default-editor-width);
-    display: grid;
-    grid-template-rows: 42px repeat(2, 1fr);
-    align-items: center;
+
+    display: flex;
+    flex-direction: column;
+
+    section {
+        height: 100%;
+    }
+
+    .cm-editor {
+        height: 100%;
+    }
+
+    .cm-scroller {
+        overflow-y: scroll;
+    }
 }
 
 .canvas-wrapper {

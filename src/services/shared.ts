@@ -1,11 +1,15 @@
+import { EditorView } from "codemirror";
 import Renderer from "./renderer";
 
 type Shared = {
+    needsUpdate: boolean;
     renderer?: Renderer;
-    fragmentEditor?: HTMLTextAreaElement;
-    vertexEditor?: HTMLTextAreaElement;
+    fragmentEditor?: EditorView;
+    vertexEditor?: EditorView;
 };
 
-const shared: Shared = {};
+const shared: Shared = {
+    needsUpdate: false,
+};
 
 export { shared }
