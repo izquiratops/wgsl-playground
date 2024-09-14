@@ -1,17 +1,46 @@
 import { EditorView, basicSetup } from 'codemirror';
 import { wgsl } from "@iizukak/codemirror-lang-wgsl";
-
-
+// WGSL-playground modules
 import Renderer from './renderer';
 import Shared from './shared';
+import Theme from '../utils/theme.json';
+// Codemirror OneDark theme
 import { oneDark } from '../utils/oneDarkTheme';
-
+// Default WGSL code
 import defaultShader from '../shaders/default.wgsl';
 
 class Editor {
     private canvasEl = document.querySelector('canvas') as HTMLCanvasElement;
 
     constructor() {
+        this.setupTheme();
+        this.setupCodemirror();
+    }
+
+    setupTheme() {
+        const lenght = Theme['UpperBar'].length;
+        const idx = Math.floor(Math.random() * lenght);
+        const currentTheme = Theme['UpperBar'][idx];
+
+        console.debug('theme idx', idx);
+        if (!currentTheme) {
+            throw Error('Error applying theme');
+        }
+
+        const themeProperties = [
+            "--theme-primary",
+            "--theme-secondary",
+        ] as const;
+
+        for (const property of themeProperties) {
+            document.documentElement.style.setProperty(
+                property,
+                currentTheme[property]
+            );
+        }
+    }
+
+    setupCodemirror() {
         const vertexCode = localStorage.getItem('shaderCode') ?? defaultShader
 
         Shared.shaderEditor = new EditorView({

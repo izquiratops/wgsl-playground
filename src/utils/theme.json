@@ -1,0 +1,20 @@
+{
+    "UpperBar": [
+        {
+            "--theme-primary": "#E2BFD9",
+            "--theme-secondary": "#C8A1E0"
+        },
+        {
+            "--theme-primary": "#0D7C66",
+            "--theme-secondary": "#41B3A2"
+        },
+        {
+            "--theme-primary": "#4B527E",
+            "--theme-secondary": "#7C81AD"
+        },
+        {
+            "--theme-primary": "#FA7070",
+            "--theme-secondary": "#FECDA6"
+        }
+    ]
+}

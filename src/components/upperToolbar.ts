@@ -16,7 +16,7 @@ class UpperToolbar extends HTMLElement {
             <button id="draw-btn">Draw</button>
             <button id="fullscreen-btn" title="Esc">Fullscreen</button>
             <form action="https://github.com/izquiratops/wgsl-playground" target="_blank" style="display: inline;">
-                <input type="submit" value="Github" />
+                <input type="submit" value="Github" title="😸" />
             </form>
         </div>
         `;

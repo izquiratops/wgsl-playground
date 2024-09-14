@@ -74,6 +74,14 @@ dialog {
     background: repeating-linear-gradient(-45deg, var(--theme-primary), var(--theme-primary) 20px, var(--theme-secondary) 20px, var(--theme-secondary) 40px);
 }
 
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: var(--spacing-s);
+    margin-block: var(--spacing-s);
+}
+
 .horizontal-split-container {
     display: flex;
     height: 100vh;
