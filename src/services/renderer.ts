@@ -1,6 +1,6 @@
 import { BufferUsage, textureFormat } from "../constants";
 import { UpdateResponse } from "../types";
-import { shared } from "./shared";
+import { getCodeFromEditors, shared } from "./shared";
 
 class Renderer {
     constructor(
@@ -65,17 +65,7 @@ class Renderer {
     }
 
     updatePipeline(): UpdateResponse {
-        const { vertexEditor, fragmentEditor } = shared;
-
-        if (!vertexEditor) {
-            throw Error('Vertex editor not found')
-        }
-        const vertexCode = vertexEditor.state.doc.toString();
-
-        if (!fragmentEditor) {
-            throw Error('Fragment editor not found')
-        }
-        const fragmentCode = fragmentEditor.state.doc.toString();
+        const { vertexCode, fragmentCode } = getCodeFromEditors();
 
         const pipeline = this.device.createRenderPipeline({
             layout: "auto",

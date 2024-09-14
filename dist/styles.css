@@ -7,14 +7,16 @@
     --theme-secondary: #C8A1E0;
     --theme-bg: #282C34;
     --theme-stripes-thickness: 72px;
-    --default-editor-width: 600px;
+    --default-editor-width: 700px;
+
+    color-scheme: dark;
 }
 
 html,
 body {
     margin: 0;
     font-family: Helvetica, sans-serif;
-    background: black;
+    background: var(--theme-bg);
 }
 
 h3 {

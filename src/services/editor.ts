@@ -4,21 +4,24 @@ import Renderer from './renderer';
 import { oneDark } from '../utils/oneDark';
 import { shared } from './shared';
 
-import defaultFragmentShader from '../shaders/fragment.wgsl';
 import defaultVertexShader from '../shaders/vertex.wgsl';
+import defaultFragmentShader from '../shaders/fragment.wgsl';
 
 class Editor {
     private canvasEl = document.querySelector('canvas') as HTMLCanvasElement;
 
     constructor() {
+        const vertexCode = localStorage.getItem('vertexCode') ?? defaultVertexShader
+        const fragmentCode = localStorage.getItem('fragmentCode') ?? defaultFragmentShader
+
         shared.vertexEditor = new EditorView({
-            doc: defaultVertexShader,
+            doc: vertexCode,
             extensions: [basicSetup, oneDark],
             parent: document.querySelector('#vertex-editor') as HTMLDivElement
         });
 
         shared.fragmentEditor = new EditorView({
-            doc: defaultFragmentShader,
+            doc: fragmentCode,
             extensions: [basicSetup, oneDark],
             parent: document.querySelector('#fragment-editor') as HTMLDivElement
         });
