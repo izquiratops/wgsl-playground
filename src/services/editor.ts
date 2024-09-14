@@ -17,7 +17,7 @@ class Editor {
         this.setupCodemirror();
     }
 
-    setupTheme() {
+    private setupTheme() {
         const lenght = Theme['UpperBar'].length;
         const idx = Math.floor(Math.random() * lenght);
         const currentTheme = Theme['UpperBar'][idx];
@@ -40,7 +40,7 @@ class Editor {
         }
     }
 
-    setupCodemirror() {
+    private setupCodemirror() {
         const vertexCode = localStorage.getItem('shaderCode') ?? defaultShader
 
         Shared.shaderEditor = new EditorView({
