@@ -1,9 +1,14 @@
-import { shared } from "../services/shared";
+import { getCodeFromEditors, shared } from "../services/shared";
 
 class UpperToolbar extends HTMLElement {
     private drawButtonEl!: HTMLButtonElement;
 
     private draw = () => {
+        // Autosave on local storage
+        const { vertexCode, fragmentCode } = getCodeFromEditors();
+        localStorage.setItem('vertexCode', vertexCode);
+        localStorage.setItem('fragmentCode', fragmentCode);
+
         // The following frame will update the pipeline
         shared.needsUpdate = true;
     }
@@ -12,7 +17,12 @@ class UpperToolbar extends HTMLElement {
         super();
         this.innerHTML = `
         <h3>WGSL Playground</h3>
-        <button id="draw" title="Ctrl + Enter">Draw</button>
+        <div class="actions">
+            <button id="draw" title="Ctrl + Enter">Draw</button>
+            <form action="https://github.com/izquiratops/wgsl-playground" target="_blank" style="display: inline;">
+                <input type="submit" value="Github" />
+            </form>
+        </div>
         `;
     }
 
