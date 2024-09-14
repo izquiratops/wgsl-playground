@@ -1,11 +1,11 @@
-import { getCodeFromEditors, shared } from "../services/shared";
+import { getEditorCode, shared } from "../services/shared";
 
 class UpperToolbar extends HTMLElement {
     private drawButtonEl!: HTMLButtonElement;
 
     private draw = () => {
         // Autosave on local storage
-        const shaderCode = getCodeFromEditors();
+        const shaderCode = getEditorCode();
         localStorage.setItem('shaderCode', shaderCode);
 
         // The following frame will update the pipeline
