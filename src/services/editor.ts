@@ -3,7 +3,7 @@ import { wgsl } from "@iizukak/codemirror-lang-wgsl";
 
 
 import Renderer from './renderer';
-import { shared } from './shared';
+import Shared from './shared';
 import { oneDark } from '../utils/oneDarkTheme';
 
 import defaultShader from '../shaders/default.wgsl';
@@ -14,7 +14,7 @@ class Editor {
     constructor() {
         const vertexCode = localStorage.getItem('shaderCode') ?? defaultShader
 
-        shared.shaderEditor = new EditorView({
+        Shared.shaderEditor = new EditorView({
             doc: vertexCode,
             extensions: [basicSetup, oneDark, wgsl()],
             parent: document.querySelector('#shader-editor') as HTMLDivElement
@@ -32,8 +32,8 @@ class Editor {
             }
 
             const device = await adapter.requestDevice()
-            shared.renderer = new Renderer(device, this.canvasEl, context);
-            shared.renderer.render();
+            Shared.renderer = new Renderer(device, this.canvasEl, context);
+            Shared.renderer.render();
 
             adapter.features.forEach(console.log);
         } else {

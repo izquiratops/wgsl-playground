@@ -62,8 +62,14 @@ dialog {
     outline: none;
 }
 
+#show-ui-btn {
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: var(--spacing-m);
+}
+
 .diagonal-stripes {
-    opacity: 1;
     background-color: var(--theme-bg);
     background: repeating-linear-gradient(-45deg, var(--theme-primary), var(--theme-primary) 20px, var(--theme-secondary) 20px, var(--theme-secondary) 40px);
 }
@@ -95,6 +101,10 @@ dialog {
 .canvas-wrapper {
     position: relative;
     flex: auto 1 1;
+}
+
+.hidden {
+    display: none;
 }
 
 @media (max-width: 1200px) {

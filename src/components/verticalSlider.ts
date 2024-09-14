@@ -12,9 +12,9 @@ class VerticalSlider extends HTMLElement {
     connectedCallback() {
         this.editorContainerEl = document.querySelector('.editor-container') as HTMLTextAreaElement;
 
-        this.addEventListener('mousedown', (e) => {
+        this.addEventListener('mousedown', (event) => {
             // Avoid this event to trigger other stuff like text selection
-            e.preventDefault();
+            event.preventDefault();
             document.addEventListener('mousemove', this.resizeCanvasEvent);
         });
         

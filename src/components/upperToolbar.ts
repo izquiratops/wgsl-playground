@@ -1,15 +1,11 @@
-import { getEditorCode, shared } from "../services/shared";
+import Shared from "../services/shared";
 
 class UpperToolbar extends HTMLElement {
-    private drawButtonEl!: HTMLButtonElement;
-
     private draw = () => {
         // Autosave on local storage
-        const shaderCode = getEditorCode();
-        localStorage.setItem('shaderCode', shaderCode);
-
+        localStorage.setItem('shaderCode', Shared.editorCode);
         // The following frame will update the pipeline
-        shared.needsUpdate = true;
+        Shared.needsUpdate = true;
     }
 
     constructor() {
@@ -17,7 +13,8 @@ class UpperToolbar extends HTMLElement {
         this.innerHTML = `
         <h3>WGSL Playground</h3>
         <div class="actions">
-            <button id="draw" title="Ctrl + Enter">Draw</button>
+            <button id="draw-btn">Draw</button>
+            <button id="fullscreen-btn" title="Esc">Fullscreen</button>
             <form action="https://github.com/izquiratops/wgsl-playground" target="_blank" style="display: inline;">
                 <input type="submit" value="Github" />
             </form>
@@ -26,12 +23,17 @@ class UpperToolbar extends HTMLElement {
     }
 
     connectedCallback() {
-        this.drawButtonEl = document.querySelector('#draw') as HTMLButtonElement;
-        this.drawButtonEl.addEventListener('click', this.draw);
+        const drawButtonEl = document.querySelector('#draw-btn') as HTMLButtonElement;
+        drawButtonEl.addEventListener('click', this.draw);
+
+        const fullscreenButtonEl = document.querySelector('#fullscreen-btn') as HTMLButtonElement;
+        fullscreenButtonEl.addEventListener('click', Shared.toggleFullscreen);
+        const showUiButtonEl = document.querySelector('#show-ui-btn') as HTMLButtonElement;
+        showUiButtonEl.addEventListener('click', Shared.toggleFullscreen);
 
         document.addEventListener('keydown', (event) => {
-            if (event.ctrlKey && event.key === 'Enter') {
-                this.draw();
+            if (event.key === 'Escape') {
+                Shared.toggleFullscreen();
             }
         });
     }
