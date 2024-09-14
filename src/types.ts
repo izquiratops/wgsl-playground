@@ -4,8 +4,7 @@ import Renderer from "./services/renderer";
 export type Shared = {
     needsUpdate: boolean;
     renderer?: Renderer;
-    fragmentEditor?: EditorView;
-    vertexEditor?: EditorView;
+    shaderEditor?: EditorView;
 };
 
 export type UpdateResponse = {

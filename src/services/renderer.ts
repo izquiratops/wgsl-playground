@@ -1,6 +1,6 @@
 import { BufferUsage, textureFormat } from "../constants";
 import { UpdateResponse } from "../types";
-import { getCodeFromEditors, shared } from "./shared";
+import { getEditorCode, shared } from "./shared";
 
 class Renderer {
     constructor(
@@ -65,21 +65,21 @@ class Renderer {
     }
 
     updatePipeline(): UpdateResponse {
-        const { vertexCode, fragmentCode } = getCodeFromEditors();
+        const shaderCode = getEditorCode();
 
         const pipeline = this.device.createRenderPipeline({
             layout: "auto",
             vertex: {
                 module: this.device.createShaderModule({
-                    code: vertexCode,
+                    code: shaderCode,
                 }),
-                entryPoint: 'main',
+                entryPoint: 'mainVertex',
             },
             fragment: {
                 module: this.device.createShaderModule({
-                    code: fragmentCode,
+                    code: shaderCode,
                 }),
-                entryPoint: 'main',
+                entryPoint: 'mainFragment',
                 targets: [{ format: textureFormat }],
             },
             primitive: {

@@ -1,29 +1,23 @@
 import { EditorView, basicSetup } from 'codemirror';
+import { wgsl } from "@iizukak/codemirror-lang-wgsl";
+
+
 import Renderer from './renderer';
-
-import { oneDark } from '../utils/oneDark';
 import { shared } from './shared';
+import { oneDark } from '../utils/oneDarkTheme';
 
-import defaultVertexShader from '../shaders/vertex.wgsl';
-import defaultFragmentShader from '../shaders/fragment.wgsl';
+import defaultShader from '../shaders/default.wgsl';
 
 class Editor {
     private canvasEl = document.querySelector('canvas') as HTMLCanvasElement;
 
     constructor() {
-        const vertexCode = localStorage.getItem('vertexCode') ?? defaultVertexShader
-        const fragmentCode = localStorage.getItem('fragmentCode') ?? defaultFragmentShader
+        const vertexCode = localStorage.getItem('shaderCode') ?? defaultShader
 
-        shared.vertexEditor = new EditorView({
+        shared.shaderEditor = new EditorView({
             doc: vertexCode,
-            extensions: [basicSetup, oneDark],
-            parent: document.querySelector('#vertex-editor') as HTMLDivElement
-        });
-
-        shared.fragmentEditor = new EditorView({
-            doc: fragmentCode,
-            extensions: [basicSetup, oneDark],
-            parent: document.querySelector('#fragment-editor') as HTMLDivElement
+            extensions: [basicSetup, oneDark, wgsl()],
+            parent: document.querySelector('#shader-editor') as HTMLDivElement
         });
     }
 

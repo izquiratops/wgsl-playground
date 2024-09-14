@@ -4,27 +4,15 @@ const shared: Shared = {
     needsUpdate: false,
 };
 
+function getEditorCode(): string {
+    const { shaderEditor } = shared;
 
-function getCodeFromEditors(): {
-    vertexCode: string,
-    fragmentCode: string,
-} {
-    const { vertexEditor, fragmentEditor } = shared;
-
-    if (!vertexEditor) {
+    if (!shaderEditor) {
         throw Error('Vertex editor not found')
     }
-    const vertexCode = vertexEditor.state.doc.toString();
+    const shaderCode = shaderEditor.state.doc.toString();
 
-    if (!fragmentEditor) {
-        throw Error('Fragment editor not found')
-    }
-    const fragmentCode = fragmentEditor.state.doc.toString();
-
-    return {
-        vertexCode,
-        fragmentCode
-    };
+    return shaderCode;
 }
 
-export { shared, getCodeFromEditors }
+export { shared, getEditorCode }

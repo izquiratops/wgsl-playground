@@ -5,7 +5,6 @@ const result = await build({
   entryPoints: ['./src/main.ts'],
   bundle: true,
   sourcemap: true,
-  target: 'es2015',
   format: 'esm',
   minify: true,
   metafile: true,
