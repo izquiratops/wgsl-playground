@@ -1,6 +1,6 @@
 import { BufferUsage, textureFormat } from "../constants";
 import { UpdateResponse } from "../types";
-import { getEditorCode, shared } from "./shared";
+import Shared from "./shared";
 
 class Renderer {
     constructor(
@@ -24,7 +24,7 @@ class Renderer {
         uniformsArrayBuffer[2] = 1.;
 
         const frame = (t: number) => {
-            if (shared.needsUpdate) {
+            if (Shared.needsUpdate) {
                 ({ pipeline, uniformsBuffer, uniformsBindGroup } = this.updatePipeline());
             }
 
@@ -65,7 +65,7 @@ class Renderer {
     }
 
     updatePipeline(): UpdateResponse {
-        const shaderCode = getEditorCode();
+        const shaderCode = Shared.editorCode;
 
         const pipeline = this.device.createRenderPipeline({
             layout: "auto",
@@ -101,7 +101,7 @@ class Renderer {
         });
 
         // Pipeline updated!
-        shared.needsUpdate = false;
+        Shared.needsUpdate = false;
 
         return { pipeline, uniformsBuffer, uniformsBindGroup };
     }
