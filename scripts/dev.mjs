@@ -4,7 +4,6 @@ const ctx = await context({
   entryPoints: ['./src/main.ts'],
   bundle: true,
   sourcemap: true,
-  target: 'es2015',
   format: 'esm',
   minify: false,
   outfile: './dist/js/app.js',

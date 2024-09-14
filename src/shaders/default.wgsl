@@ -13,8 +13,22 @@ fn color(p: vec2f) -> vec3f {
   return sin(vec3f(a+.1*t, a+1.5*t, a+2.9*t)) * s +.5;
 }
 
+@vertex
+fn mainVertex(@builtin(vertex_index) VertexIndex : u32) -> @builtin(position) vec4f {
+    var pos = array<vec2f, 6>(
+        vec2f(-1.0, -1.0),
+        vec2f( 1.0, -1.0),
+        vec2f( 1.0,  1.0),
+        vec2f(-1.0, -1.0),
+        vec2f( 1.0,  1.0),
+        vec2f(-1.0,  1.0)
+    );
+
+    return vec4f(pos[VertexIndex], 0.0, 1.0);
+}
+
 @fragment
-fn main(@builtin(position) FragCoord : vec4f) -> @location(0) vec4f {
+fn mainFragment(@builtin(position) FragCoord : vec4f) -> @location(0) vec4f {
   var uv: vec2f = (2. * FragCoord.xy - U.resolution);
   uv = uv / vec2f(U.resolution.y, -U.resolution.y);
 

@@ -5,9 +5,8 @@ class UpperToolbar extends HTMLElement {
 
     private draw = () => {
         // Autosave on local storage
-        const { vertexCode, fragmentCode } = getCodeFromEditors();
-        localStorage.setItem('vertexCode', vertexCode);
-        localStorage.setItem('fragmentCode', fragmentCode);
+        const shaderCode = getCodeFromEditors();
+        localStorage.setItem('shaderCode', shaderCode);
 
         // The following frame will update the pipeline
         shared.needsUpdate = true;

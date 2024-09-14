@@ -79,7 +79,7 @@ dialog {
     display: flex;
     flex-direction: column;
 
-    section {
+    .editor-wrapper {
         height: 100%;
     }
 
