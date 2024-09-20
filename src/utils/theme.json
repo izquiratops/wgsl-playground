@@ -1,16 +1,6 @@
 {
     "UpperBar": [
         {
-            "--theme-primary": "#A594F9",
-            "--theme-secondary": "#c6b3ff",
-            "--theme-detail": "#FFF"
-        },
-        {
-            "--theme-primary": "#86D293",
-            "--theme-secondary": "#acf9b8",
-            "--theme-detail": "#FFF"
-        },
-        {
             "--theme-primary": "#F05A7E",
             "--theme-secondary": "#ff7799",
             "--theme-detail": "#FFF"

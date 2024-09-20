@@ -1,13 +1,6 @@
 import Shared from "../services/shared";
 
 class UpperToolbar extends HTMLElement {
-    private draw = () => {
-        // Autosave on local storage
-        localStorage.setItem('shaderCode', Shared.editorCode);
-        // The following frame will update the pipeline
-        Shared.needsUpdate = true;
-    }
-
     constructor() {
         super();
         this.innerHTML = `
@@ -44,13 +37,31 @@ class UpperToolbar extends HTMLElement {
     }
 
     connectedCallback() {
+        const canvasEl = document.querySelector('canvas') as HTMLCanvasElement;
+
         const drawButtonEl = document.querySelector('#draw-btn') as HTMLButtonElement;
-        drawButtonEl.addEventListener('click', this.draw);
+        drawButtonEl.addEventListener('click', () => {
+            // Autosave on local storage
+            localStorage.setItem('shaderCode', Shared.editorCode);
+            // The following frame will update the pipeline
+            Shared.needsUpdate = true;
+        });
 
         const fullscreenButtonEl = document.querySelector('#fullscreen-btn') as HTMLButtonElement;
         fullscreenButtonEl.addEventListener('click', Shared.toggleFullscreen);
+
         const showUiButtonEl = document.querySelector('#show-ui-btn') as HTMLButtonElement;
         showUiButtonEl.addEventListener('click', Shared.toggleFullscreen);
+
+        const githubButtonEl = document.querySelector('#github-btn') as HTMLButtonElement;
+        githubButtonEl.addEventListener('click', () => {
+            window.open('https://github.com/izquiratops/wgsl-playground', '_blank');
+        });
+
+        const aspectRatioButtonEl = document.querySelector('#toggle-aspect-ratio-btn') as HTMLButtonElement;
+        aspectRatioButtonEl.addEventListener('click', () => {
+            canvasEl.classList.toggle('keep-aspect-ratio');
+        });
 
         document.addEventListener('keydown', (event) => {
             if (event.key === 'Escape') {
