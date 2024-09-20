@@ -16,7 +16,18 @@ class Renderer {
             alphaMode: 'opaque'
         });
 
-        let { pipeline, uniformsBuffer, uniformsBindGroup } = this.updatePipeline();
+        let { pipeline, uniformsBuffer } = this.updatePipeline();
+
+        const renderPassDescriptor = {
+            colorAttachments: [
+                {
+                    view: this.context.getCurrentTexture().createView(),
+                    clearValue: { r: 0.0, g: 0.0, b: 0.0, a: 1.0 },
+                    loadOp: 'clear',
+                    storeOp: 'store',
+                },
+            ],
+        };
 
         const uniformsArrayBuffer = new Float32Array(3);
         uniformsArrayBuffer[0] = this.canvas.clientWidth;
@@ -25,23 +36,12 @@ class Renderer {
 
         const frame = (t: number) => {
             if (Shared.needsUpdate) {
-                ({ pipeline, uniformsBuffer, uniformsBindGroup } = this.updatePipeline());
+                ({ pipeline, uniformsBuffer } = this.updatePipeline());
             }
 
-            const commandEncoder = this.device.createCommandEncoder();
             const textureView = this.context.getCurrentTexture().createView();
-
-            const renderPassDescriptor: any = {
-                colorAttachments: [
-                    {
-                        view: textureView,
-                        loadValue: { r: 0.0, g: 0.0, b: 0.0, a: 1.0 },
-                        loadOp: 'clear',
-                        storeOp: 'store',
-                    },
-                ],
-            };
-
+            renderPassDescriptor.colorAttachments[0]!.view = textureView;
+            
             uniformsArrayBuffer[2] = t;
             this.device.queue.writeBuffer(
                 uniformsBuffer,
@@ -50,14 +50,18 @@ class Renderer {
                 uniformsArrayBuffer.byteOffset,
                 uniformsArrayBuffer.byteLength
             );
-
-            const passEncoder = commandEncoder.beginRenderPass(renderPassDescriptor);
+            
+            const commandEncoder = this.device.createCommandEncoder({ label: 'main encoder' });
+            const passEncoder = commandEncoder.beginRenderPass(
+                renderPassDescriptor as GPURenderPassDescriptor
+            );
             passEncoder.setPipeline(pipeline);
-            passEncoder.setBindGroup(0, uniformsBindGroup);
-            passEncoder.draw(6, 1, 0, 0);
+            passEncoder.draw(3);
             passEncoder.end();
 
-            this.device.queue.submit([commandEncoder.finish()]);
+            const commandBuffer = commandEncoder.finish();
+            this.device.queue.submit([commandBuffer]);
+
             requestAnimationFrame(frame);
         }
 
@@ -67,23 +71,23 @@ class Renderer {
     updatePipeline(): UpdateResponse {
         const shaderCode = Shared.editorCode;
 
+        const presentationFormat = navigator.gpu.getPreferredCanvasFormat();
         const pipeline = this.device.createRenderPipeline({
             layout: "auto",
             vertex: {
                 module: this.device.createShaderModule({
+                    label: 'editor code',
                     code: shaderCode,
                 }),
                 entryPoint: 'mainVertex',
             },
             fragment: {
                 module: this.device.createShaderModule({
+                    label: 'editor code',
                     code: shaderCode,
                 }),
                 entryPoint: 'mainFragment',
-                targets: [{ format: textureFormat }],
-            },
-            primitive: {
-                topology: 'triangle-list',
+                targets: [{ format: presentationFormat }],
             },
         });
 
@@ -92,18 +96,10 @@ class Renderer {
             usage: BufferUsage.UNIFORM | BufferUsage.COPY_DST,
         });
 
-        const uniformsBindGroup = this.device.createBindGroup({
-            layout: pipeline.getBindGroupLayout(0),
-            entries: [{
-                binding: 0,
-                resource: { buffer: uniformsBuffer }
-            }],
-        });
-
         // Pipeline updated!
         Shared.needsUpdate = false;
 
-        return { pipeline, uniformsBuffer, uniformsBindGroup };
+        return { pipeline, uniformsBuffer };
     }
 }
 

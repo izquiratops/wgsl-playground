@@ -1,20 +1,19 @@
 {
     "UpperBar": [
         {
-            "--theme-primary": "#E2BFD9",
-            "--theme-secondary": "#C8A1E0"
+            "--theme-primary": "#A594F9",
+            "--theme-secondary": "#c6b3ff",
+            "--theme-detail": "#FFF"
         },
         {
-            "--theme-primary": "#0D7C66",
-            "--theme-secondary": "#41B3A2"
+            "--theme-primary": "#86D293",
+            "--theme-secondary": "#acf9b8",
+            "--theme-detail": "#FFF"
         },
         {
-            "--theme-primary": "#4B527E",
-            "--theme-secondary": "#7C81AD"
-        },
-        {
-            "--theme-primary": "#FA7070",
-            "--theme-secondary": "#FECDA6"
+            "--theme-primary": "#F05A7E",
+            "--theme-secondary": "#ff7799",
+            "--theme-detail": "#FFF"
         }
     ]
 }

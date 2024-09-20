@@ -20,19 +20,9 @@ class Editor {
     private setupTheme() {
         const lenght = Theme['UpperBar'].length;
         const idx = Math.floor(Math.random() * lenght);
-        const currentTheme = Theme['UpperBar'][idx];
+        const currentTheme: any = Theme['UpperBar'][idx];
 
-        console.debug('theme idx', idx);
-        if (!currentTheme) {
-            throw Error('Error applying theme');
-        }
-
-        const themeProperties = [
-            "--theme-primary",
-            "--theme-secondary",
-        ] as const;
-
-        for (const property of themeProperties) {
+        for (const property of Object.keys(currentTheme)) {
             document.documentElement.style.setProperty(
                 property,
                 currentTheme[property]
@@ -41,7 +31,7 @@ class Editor {
     }
 
     private setupCodemirror() {
-        const vertexCode = localStorage.getItem('shaderCode') ?? defaultShader
+        const vertexCode = localStorage.getItem('shaderCode') ?? defaultShader;
 
         Shared.shaderEditor = new EditorView({
             doc: vertexCode,

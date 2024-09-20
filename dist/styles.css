@@ -2,7 +2,7 @@
     --spacing-s: 8px;
     --spacing-m: 16px;
     --spacing-l: 32px;
-    --theme-detail: #343131;
+    --theme-detail: #f4efef;
     --theme-primary: #E2BFD9;
     --theme-secondary: #C8A1E0;
     --theme-bg: #282C34;
@@ -31,20 +31,15 @@ canvas {
     position: absolute;
 }
 
-textarea {
-    resize: none;
-    outline: none;
-    border: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--theme-bg);
-}
-
 vertical-slider {
-    background-color: #252525;
+    background-color: var(--theme-bg);
+    transition: background-color 0.3s ease;
     cursor: col-resize;
     flex: 10px 0 0;
+}
+
+vertical-slider:hover {
+    background-color: var(--theme-primary);
 }
 
 upper-toolbar {
@@ -53,6 +48,18 @@ upper-toolbar {
     justify-content: space-between;
     column-gap: var(--spacing-m);
     padding-inline: var(--spacing-m);
+}
+
+button {
+    border: none;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 99px;
+    display: grid;
+    place-content: center;
+
+    :hover {
+        cursor: pointer;
+    }
 }
 
 dialog {
@@ -92,23 +99,20 @@ dialog {
 
     display: flex;
     flex-direction: column;
+}
 
-    .editor-wrapper {
-        height: 100%;
-    }
-
-    .cm-editor {
-        height: 100%;
-    }
-
-    .cm-scroller {
-        overflow-y: scroll;
-    }
+.editor-wrapper {
+    overflow-y: scroll;
 }
 
 .canvas-wrapper {
     position: relative;
     flex: auto 1 1;
+}
+
+.icon {
+    fill: var(--theme-detail);
+    stroke: var(--theme-detail);
 }
 
 .hidden {
