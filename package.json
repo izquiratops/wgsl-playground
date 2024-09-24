@@ -2,8 +2,9 @@
   "name": "webgpu-playground",
   "version": "1.0.0",
   "scripts": {
-    "dev": "node ./scripts/dev.mjs",
-    "build": "node ./scripts/build.mjs",
+    "prepare": "cd dobunezumi && go build",
+    "dev": "./dobunezumi/dobunezumi serve --entry ./src/main.ts --dist ./dist",
+    "build": "./dobunezumi/dobunezumi build --entry ./src/main.ts --dist ./dist --minify true",
     "clean": "rm -rf ./dist/js"
   },
   "author": "Jordi Izquierdo",

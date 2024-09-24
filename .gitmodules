@@ -1,0 +1,3 @@
+[submodule "dobunezumi"]
+	path = dobunezumi
+	url = git@github.com:izquiratops/dobunezumi.git

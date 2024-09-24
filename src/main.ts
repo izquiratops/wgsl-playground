@@ -1,19 +1,17 @@
-import Editor from './services/editor';
+import safeQuery from './utils/safeQuery';
+import styleCss from './styles.css';
 import './components';
 
-async function main() {
-    const editor = new Editor();
-    const errorElementEl = document.querySelector('#error') as HTMLDialogElement;
+// Load global styles
+const stylesheet = new CSSStyleSheet();
+stylesheet.replaceSync(styleCss);
+document.adoptedStyleSheets.push(stylesheet);
 
-    if (navigator && navigator.serviceWorker) {
-		navigator.serviceWorker.register('offline.js');
-	}
-
-    try {
-        await editor.initializeWebGPU();
-    } catch {
-        errorElementEl.showModal();
-    }
+// Offline support
+if (navigator && navigator.serviceWorker) {
+    navigator.serviceWorker.register('offline.js');
 }
 
-main();
+// Bootstrap project
+const bodyEl = safeQuery<HTMLBodyElement>('body');
+bodyEl.appendChild(document.createElement('code-editor-view'));

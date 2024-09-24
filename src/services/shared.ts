@@ -8,9 +8,9 @@ class Shared {
 
     constructor() { }
 
-    static get editorCode(): string {
+    static get shaderEditorCode(): string {
         if (!Shared.shaderEditor) {
-            throw Error('Vertex editor not found')
+            throw new Error('Editor not found');
         }
 
         return Shared.shaderEditor.state.doc.toString();

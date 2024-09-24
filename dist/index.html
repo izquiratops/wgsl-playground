@@ -5,33 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WGSL Playground</title>
-    <script src="js/app.js" type="module"></script>
+    <script src="main.js" type="module"></script>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 
 <body>
-    <div class="horizontal-split-container">
-        <div class="editor-container hideable">
-            <upper-toolbar class="diagonal-stripes"></upper-toolbar>
-            <div id="shader-editor" class="editor-wrapper"></div>
-        </div>
-        <vertical-slider class="hideable"></vertical-slider>
-        <div class="canvas-wrapper polka-dots">
-            <canvas></canvas>
-        </div>
-    </div>
-
-    <button id="show-ui-btn" class="hideable hidden" type="button" aria-label="Exit fullscreen" title="Exit fullscreen">
-        <svg width="24px" height="24px" aria-hidden="true" focusable="false" fill="none">
-            <path class="icon" d="M9 9L4 4M4 4V8M4 4H8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            <path class="icon" d="M15 9L20 4M20 4V8M20 4H16" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            <path class="icon" d="M9 15L4 20M4 20V16M4 20H8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            <path class="icon" d="M15 15L20 20M20 20V16M20 20H16" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-        </svg>
-    </button>
-
-    <error-modal></error-modal>
+    <!-- Editor appended here... -->
 </body>
 
 </html>

@@ -69,7 +69,7 @@ class Renderer {
     }
 
     updatePipeline(): UpdateResponse {
-        const shaderCode = Shared.editorCode;
+        const shaderCode = Shared.shaderEditorCode;
 
         const presentationFormat = navigator.gpu.getPreferredCanvasFormat();
         const pipeline = this.device.createRenderPipeline({

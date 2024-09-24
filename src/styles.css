@@ -1,4 +1,6 @@
 :root {
+    color-scheme: dark;
+
     --spacing-s: 8px;
     --spacing-m: 16px;
     --spacing-l: 32px;
@@ -9,8 +11,6 @@
     --theme-bg-darker: #333842;
     --theme-stripes-thickness: 72px;
     --default-editor-width: 700px;
-
-    color-scheme: dark;
 }
 
 html,
@@ -18,13 +18,6 @@ body {
     margin: 0;
     font-family: Helvetica, sans-serif;
     background: var(--theme-bg);
-}
-
-h3 {
-    margin-block: var(--spacing-s);
-    color: white;
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
-    text-wrap: nowrap;
 }
 
 canvas {
@@ -42,14 +35,6 @@ vertical-slider {
 
 vertical-slider:hover {
     background-color: var(--theme-primary);
-}
-
-upper-toolbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    column-gap: var(--spacing-m);
-    padding-inline: var(--spacing-m);
 }
 
 button {
@@ -74,22 +59,30 @@ dialog {
     outline: none;
 }
 
-#show-ui-btn {
-    position: fixed;
-    top: 0;
-    left: 0;
-    margin: var(--spacing-m);
+/* Components */
+
+code-editor-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: var(--spacing-m);
+    padding-inline: var(--spacing-m);
+
+    #title {
+        color: var(--theme-detail);
+        margin-block: var(--spacing-s);
+        text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+        text-wrap: nowrap;
+    }
 }
 
-.diagonal-stripes {
-    background-color: var(--theme-bg);
-    background: repeating-linear-gradient(-45deg, var(--theme-primary), var(--theme-primary) 20px, var(--theme-secondary) 20px, var(--theme-secondary) 40px);
-}
-
-.polka-dots {
-    background-color: var(--theme-bg);
-    background-image: radial-gradient(var(--theme-bg-darker) 1.5px, var(--theme-bg) 1.5px);
-    background-size: 30px 30px;
+absolute-interface {
+    #exit-fullscreen-btn {
+        position: fixed;
+        top: 0;
+        left: 0;
+        margin: var(--spacing-m);
+    }
 }
 
 .actions {
@@ -125,10 +118,14 @@ dialog {
     align-items: center;
 }
 
+/* SVG */
+
 .icon {
     fill: var(--theme-detail);
     stroke: var(--theme-detail);
 }
+
+/* Utility */
 
 .hidden {
     display: none;
@@ -137,6 +134,21 @@ dialog {
 .keep-aspect-ratio {
     height: auto;
 }
+
+/* Patterns */
+
+.diagonal-stripes {
+    background-color: var(--theme-bg);
+    background: repeating-linear-gradient(-45deg, var(--theme-primary), var(--theme-primary) 20px, var(--theme-secondary) 20px, var(--theme-secondary) 40px);
+}
+
+.polka-dots {
+    background-color: var(--theme-bg);
+    background-image: radial-gradient(var(--theme-bg-darker) 1.5px, var(--theme-bg) 1.5px);
+    background-size: 30px 30px;
+}
+
+/* Media Queries */
 
 @media (max-width: 1200px) {
     .editor-container {
