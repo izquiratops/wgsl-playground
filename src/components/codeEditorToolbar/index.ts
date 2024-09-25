@@ -1,6 +1,6 @@
 import Shared from "../../services/shared";
 import safeQuery from "../../utils/safeQuery";
-import indexHtml from './index.html';
+import htmlPath from './index.html';
 
 class CodeEditorToolbar extends HTMLElement {
   constructor() {
@@ -8,7 +8,9 @@ class CodeEditorToolbar extends HTMLElement {
   }
   
   connectedCallback() {
-    this.innerHTML = indexHtml;
+    fetch(htmlPath)
+      .then(response => response.text())
+      .then(html => this.innerHTML = html);
 
     const drawButtonEl = safeQuery<HTMLButtonElement>('#draw-btn');
     drawButtonEl.addEventListener('click', this.saveShaderCode);

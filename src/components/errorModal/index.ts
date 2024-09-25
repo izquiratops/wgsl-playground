@@ -1,4 +1,4 @@
-import indexHtml from "./index.html";
+import htmlPath from "./index.html";
 
 class ErrorModal extends HTMLElement {
   constructor() {
@@ -6,7 +6,9 @@ class ErrorModal extends HTMLElement {
   }
 
   connectedCallback() {
-    this.innerHTML = indexHtml;
+    fetch(htmlPath)
+      .then(response => response.text())
+      .then(html => this.innerHTML = html);
   }
 }
 

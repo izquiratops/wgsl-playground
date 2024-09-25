@@ -1,6 +1,6 @@
 import Shared from "../../services/shared";
 import safeQuery from "../../utils/safeQuery";
-import indexHtml from './index.html';
+import htmlPath from './index.html';
 
 class AbsoluteInterface extends HTMLElement {
   constructor() {
@@ -8,7 +8,9 @@ class AbsoluteInterface extends HTMLElement {
   }
   
   connectedCallback() {
-    this.innerHTML = indexHtml;
+    fetch(htmlPath)
+      .then(response => response.text())
+      .then(html => this.innerHTML = html);
 
     const exitFullscreenButtonEl = safeQuery<HTMLButtonElement>('#exit-fullscreen-btn');
     exitFullscreenButtonEl.addEventListener('click', () => Shared.toggleFullscreen);
