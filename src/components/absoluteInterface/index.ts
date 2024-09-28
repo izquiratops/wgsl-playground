@@ -10,8 +10,11 @@ class AbsoluteInterface extends HTMLElement {
   connectedCallback() {
     fetch(htmlPath)
       .then(response => response.text())
-      .then(html => this.innerHTML = html);
+      .then(html => this.innerHTML = html)
+      .then(() => this.onLoad());
+  }
 
+  private onLoad() {
     const exitFullscreenButtonEl = safeQuery<HTMLButtonElement>('#exit-fullscreen-btn');
     exitFullscreenButtonEl.addEventListener('click', () => Shared.toggleFullscreen);
   }

@@ -10,10 +10,13 @@ class CodeEditorToolbar extends HTMLElement {
   connectedCallback() {
     fetch(htmlPath)
       .then(response => response.text())
-      .then(html => this.innerHTML = html);
+      .then(html => this.innerHTML = html)
+      .then(() => this.onLoad());
+  }
 
+  private onLoad() {
     const drawButtonEl = safeQuery<HTMLButtonElement>('#draw-btn');
-    drawButtonEl.addEventListener('click', this.saveShaderCode);
+    drawButtonEl.addEventListener('click', this.runShaderCode);
 
     const fullscreenButtonEl = safeQuery<HTMLButtonElement>('#fullscreen-btn');
     fullscreenButtonEl.addEventListener('click', Shared.toggleFullscreen);
@@ -25,11 +28,11 @@ class CodeEditorToolbar extends HTMLElement {
     aspectRatioButtonEl.addEventListener('click', () => this.toggleAspectRatio);
   }
 
-  private saveShaderCode() {
-    // Autosave on local storage
-    localStorage.setItem('shaderCode', Shared.shaderEditorCode);
+  private runShaderCode() {
     // This flag makes the pipeline update on the next frame
     Shared.needsUpdate = true;
+    // Autosaves on every re-run
+    localStorage.setItem('shaderCode', Shared.shaderEditorCode);
   }
 
   private redirectToGithub() {

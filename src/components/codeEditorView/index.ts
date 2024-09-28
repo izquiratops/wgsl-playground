@@ -11,7 +11,7 @@ class CodeEditorView extends HTMLElement {
     fetch(htmlPath)
       .then(response => response.text())
       .then(html => this.innerHTML = html)
-      .then(this.onLoad);
+      .then(() => this.onLoad());
   }
 
   private onLoad() {
