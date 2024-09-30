@@ -1,6 +1,3 @@
-<svg width="24px" height="24px" aria-hidden="true" focusable="false" fill="none">
-  <path class="icon" d="M18 2L6 2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-  <path class="icon" d="M18 22L6 22" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-  <path class="icon" d="M12 14V19M12 19L15 16M12 19L9 16" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-  <path class="icon" d="M12 10V5M12 5L15 8M12 5L9 8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h4V4m12 4h-4V4M4 16h4v4m12-4h-4v4"/>
 </svg>
