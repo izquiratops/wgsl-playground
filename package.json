@@ -9,7 +9,7 @@
   "author": "Jordi Izquierdo",
   "license": "ISC",
   "devDependencies": {
-    "@webgpu/types": "^0.1.46",
+    "@webgpu/types": "^0.1.47",
     "esbuild": "^0.24.0"
   },
   "dependencies": {
