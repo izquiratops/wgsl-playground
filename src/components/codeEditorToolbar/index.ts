@@ -1,20 +1,12 @@
+import BaseComponent from "../../utils/baseComponent";
 import Shared from "../../services/shared";
 import { $ } from "../../utils/queries";
 import htmlPath from "./index.html";
 
-class CodeEditorToolbar extends HTMLElement {
-  constructor() {
-    super();
-  }
+class CodeEditorToolbar extends BaseComponent {
+  protected htmlPath = htmlPath;
 
-  connectedCallback() {
-    fetch(htmlPath)
-      .then((response) => response.text())
-      .then((html) => (this.innerHTML = html))
-      .then(() => this.onLoad());
-  }
-
-  private onLoad() {
+  protected onLoad() {
     const drawButtonEl = $<HTMLButtonElement>("#draw-btn");
     drawButtonEl.addEventListener("click", this.runShaderCode);
 
@@ -27,7 +19,7 @@ class CodeEditorToolbar extends HTMLElement {
     const aspectRatioButtonEl = $<HTMLButtonElement>(
       "#toggle-aspect-ratio-btn",
     );
-    aspectRatioButtonEl.addEventListener("click", () => this.toggleAspectRatio);
+    aspectRatioButtonEl.addEventListener("click", this.toggleAspectRatio);
   }
 
   private runShaderCode() {

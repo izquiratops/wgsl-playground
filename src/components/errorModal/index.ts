@@ -1,15 +1,10 @@
+import BaseComponent from "../../utils/baseComponent";
 import htmlPath from "./index.html";
 
-class ErrorModal extends HTMLElement {
-  constructor() {
-    super();
-  }
+class ErrorModal extends BaseComponent {
+  protected htmlPath = htmlPath;
 
-  connectedCallback() {
-    fetch(htmlPath)
-      .then(response => response.text())
-      .then(html => this.innerHTML = html);
-  }
+  protected onLoad() {}
 }
 
 customElements.define("error-modal", ErrorModal);

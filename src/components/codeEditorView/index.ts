@@ -1,20 +1,12 @@
+import BaseComponent from "../../utils/baseComponent";
 import Editor from "../../services/editor";
 import { $ } from "../../utils/queries";
 import htmlPath from "./index.html";
 
-class CodeEditorView extends HTMLElement {
-  constructor() {
-    super();
-  }
+class CodeEditorView extends BaseComponent {
+  protected htmlPath = htmlPath;
 
-  connectedCallback() {
-    fetch(htmlPath)
-      .then((response) => response.text())
-      .then((html) => (this.innerHTML = html))
-      .then(() => this.onLoad());
-  }
-
-  private onLoad() {
+  protected onLoad() {
     const editor = new Editor();
 
     editor.setupCodemirror();

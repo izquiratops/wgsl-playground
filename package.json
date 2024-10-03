@@ -7,7 +7,8 @@
     "email": "jordi.izquierdo.casares@gmail.com"
   },
   "scripts": {
-    "prepare": "cd dobunezumi && go build",
+    "prepare": "git submodule update --init && npm run \"build-bundler\"",
+    "build-bundler": "cd dobunezumi && go build",
     "dev": "./dobunezumi/dobunezumi serve --entry ./src/main.ts --dist ./dist",
     "build": "./dobunezumi/dobunezumi build --entry ./src/main.ts --dist ./dist --minify true"
   },
