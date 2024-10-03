@@ -1,5 +1,6 @@
 interface ComponentOptions {
     selector: string;
+    styleUrls?: Array<string>,
     templateUrl?: string;
 }
 

@@ -1,8 +1,10 @@
 import { Component, BaseComponent } from "../../utils/baseComponent";
 import { $ } from "../../utils/queries";
+import styleUrl from "./style.css";
 
 @Component({
-  selector: 'vertial-slider'
+  selector: 'vertial-slider',
+  styleUrls: [styleUrl]
 })
 class VerticalSlider extends BaseComponent {
   private editorContainerEl!: HTMLTextAreaElement;

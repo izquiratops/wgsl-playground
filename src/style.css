@@ -26,17 +26,6 @@ canvas {
     position: absolute;
 }
 
-vertical-slider {
-    background-color: var(--theme-bg);
-    transition: background-color 0.3s ease;
-    cursor: col-resize;
-    flex: 10px 0 0;
-}
-
-vertical-slider:hover {
-    background-color: var(--theme-primary);
-}
-
 button {
     border: none;
     background: rgba(0, 0, 0, 0.2);
@@ -60,30 +49,6 @@ dialog {
 }
 
 /* Components */
-
-code-editor-toolbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    column-gap: var(--spacing-m);
-    padding-inline: var(--spacing-m);
-
-    #title {
-        color: var(--theme-detail);
-        margin-block: var(--spacing-s);
-        text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
-        text-wrap: nowrap;
-    }
-}
-
-absolute-interface {
-    #exit-fullscreen-btn {
-        position: fixed;
-        top: 0;
-        left: 0;
-        margin: var(--spacing-m);
-    }
-}
 
 .actions {
     display: flex;

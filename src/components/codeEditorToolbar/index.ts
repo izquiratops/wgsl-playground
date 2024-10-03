@@ -2,9 +2,11 @@ import { Component, BaseComponent } from "../../utils/baseComponent";
 import { $ } from "../../utils/queries";
 import Shared from "../../services/shared";
 import templateUrl from "./index.html";
+import styleUrl from "./style.css";
 
 @Component({
   selector: 'code-editor-toolbar',
+  styleUrls: [styleUrl],
   templateUrl
 })
 class CodeEditorToolbar extends BaseComponent {

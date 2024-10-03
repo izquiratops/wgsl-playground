@@ -1,5 +1,5 @@
 import { $ } from "./utils/queries";
-import "./styles.css";
+import "./style.css";
 import "./components";
 
 // Offline support
