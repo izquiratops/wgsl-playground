@@ -1,11 +1,12 @@
-import BaseComponent from "../../utils/baseComponent";
-import htmlPath from "./index.html";
+import { Component, BaseComponent } from "../../utils/baseComponent";
+import templateUrl from "./index.html";
 
+@Component({
+  selector: 'error-modal',
+  templateUrl
+})
 class ErrorModal extends BaseComponent {
-  protected htmlPath = htmlPath;
-
   protected onLoad() {}
 }
 
-customElements.define("error-modal", ErrorModal);
 export default ErrorModal;

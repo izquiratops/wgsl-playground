@@ -1,11 +1,13 @@
-import BaseComponent from "../../utils/baseComponent";
-import Editor from "../../services/editor";
+import {Component, BaseComponent} from "../../utils/baseComponent";
 import { $ } from "../../utils/queries";
-import htmlPath from "./index.html";
+import Editor from "../../services/editor";
+import templateUrl from "./index.html";
 
+@Component({
+  selector: 'code-editor-view',
+  templateUrl
+})
 class CodeEditorView extends BaseComponent {
-  protected htmlPath = htmlPath;
-
   protected onLoad() {
     const editor = new Editor();
 
@@ -20,5 +22,4 @@ class CodeEditorView extends BaseComponent {
   }
 }
 
-customElements.define("code-editor-view", CodeEditorView);
 export default CodeEditorView;

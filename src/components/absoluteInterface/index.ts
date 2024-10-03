@@ -1,11 +1,13 @@
-import BaseComponent from "../../utils/baseComponent";
-import Shared from "../../services/shared";
+import { Component, BaseComponent } from "../../utils/baseComponent";
 import { $ } from "../../utils/queries";
-import htmlPath from "./index.html";
+import Shared from "../../services/shared";
+import templateUrl from "./index.html";
 
+@Component({
+  selector: 'absolute-interface',
+  templateUrl
+})
 class AbsoluteInterface extends BaseComponent {
-  protected htmlPath = htmlPath;
-
   protected onLoad() {
     const exitFullscreenButtonEl = $<HTMLButtonElement>("#exit-fullscreen-btn");
     exitFullscreenButtonEl.addEventListener(
@@ -15,5 +17,4 @@ class AbsoluteInterface extends BaseComponent {
   }
 }
 
-customElements.define("absolute-interface", AbsoluteInterface);
 export default AbsoluteInterface;

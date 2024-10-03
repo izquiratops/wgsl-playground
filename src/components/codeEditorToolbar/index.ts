@@ -1,11 +1,13 @@
-import BaseComponent from "../../utils/baseComponent";
-import Shared from "../../services/shared";
+import { Component, BaseComponent } from "../../utils/baseComponent";
 import { $ } from "../../utils/queries";
-import htmlPath from "./index.html";
+import Shared from "../../services/shared";
+import templateUrl from "./index.html";
 
+@Component({
+  selector: 'code-editor-toolbar',
+  templateUrl
+})
 class CodeEditorToolbar extends BaseComponent {
-  protected htmlPath = htmlPath;
-
   protected onLoad() {
     const drawButtonEl = $<HTMLButtonElement>("#draw-btn");
     drawButtonEl.addEventListener("click", this.runShaderCode);
@@ -39,5 +41,4 @@ class CodeEditorToolbar extends BaseComponent {
   }
 }
 
-customElements.define("code-editor-toolbar", CodeEditorToolbar);
 export default CodeEditorToolbar;

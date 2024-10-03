@@ -1,15 +1,19 @@
-import BaseComponent from "../../utils/baseComponent";
+import { Component, BaseComponent } from "../../utils/baseComponent";
 import { $ } from "../../utils/queries";
-import htmlPath from "./index.html";
 
+@Component({
+  selector: 'vertial-slider'
+})
 class VerticalSlider extends BaseComponent {
-  protected htmlPath = htmlPath;
-  private editorContainerEl = $<HTMLTextAreaElement>(".editor-container");
+  private editorContainerEl!: HTMLTextAreaElement;
+
   private resizeCanvasEvent = (e: MouseEvent) => {
     this.editorContainerEl.style.width = `${e.clientX}px`;
   };
 
   protected onLoad() {
+    this.editorContainerEl = $<HTMLTextAreaElement>(".editor-container");
+
     this.addEventListener("mousedown", (event) => {
       event.preventDefault(); // Avoid trigger other stuff like text selection
       document.addEventListener("mousemove", this.resizeCanvasEvent);
@@ -21,5 +25,4 @@ class VerticalSlider extends BaseComponent {
   }
 }
 
-customElements.define("vertical-slider", VerticalSlider);
 export default VerticalSlider;
