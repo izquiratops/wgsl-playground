@@ -1,26 +1,26 @@
-import safeQuery from "../../utils/safeQuery";
+import { $ } from "../../utils/queries";
 
 class VerticalSlider extends HTMLElement {
-    private editorContainerEl = safeQuery<HTMLTextAreaElement>('.editor-container');
+  private editorContainerEl = $<HTMLTextAreaElement>(".editor-container");
 
-    private resizeCanvasEvent = (e: MouseEvent) => {
-        this.editorContainerEl.style.width = `${e.clientX}px`;
-    }
+  private resizeCanvasEvent = (e: MouseEvent) => {
+    this.editorContainerEl.style.width = `${e.clientX}px`;
+  };
 
-    constructor() {
-        super();
-    }
+  constructor() {
+    super();
+  }
 
-    connectedCallback() {
-        this.addEventListener('mousedown', (event) => {
-            event.preventDefault(); // Avoid trigger other stuff like text selection
-            document.addEventListener('mousemove', this.resizeCanvasEvent);
-        });
+  connectedCallback() {
+    this.addEventListener("mousedown", (event) => {
+      event.preventDefault(); // Avoid trigger other stuff like text selection
+      document.addEventListener("mousemove", this.resizeCanvasEvent);
+    });
 
-        document.addEventListener('mouseup', () => {
-            document.removeEventListener('mousemove', this.resizeCanvasEvent);
-        });
-    }
+    document.addEventListener("mouseup", () => {
+      document.removeEventListener("mousemove", this.resizeCanvasEvent);
+    });
+  }
 }
 
 customElements.define("vertical-slider", VerticalSlider);

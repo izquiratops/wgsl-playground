@@ -1,16 +1,16 @@
 import Editor from "../../services/editor";
-import safeQuery from "../../utils/safeQuery";
+import { $ } from "../../utils/queries";
 import htmlPath from "./index.html";
 
 class CodeEditorView extends HTMLElement {
   constructor() {
     super();
-  } 
+  }
 
   connectedCallback() {
     fetch(htmlPath)
-      .then(response => response.text())
-      .then(html => this.innerHTML = html)
+      .then((response) => response.text())
+      .then((html) => (this.innerHTML = html))
       .then(() => this.onLoad());
   }
 
@@ -22,7 +22,7 @@ class CodeEditorView extends HTMLElement {
     editor.setupTheme();
 
     editor.initializeWebGPU().catch(() => {
-      const errorModalEl = safeQuery<HTMLDialogElement>('#error-modal');
+      const errorModalEl = $<HTMLDialogElement>("#error-modal");
       errorModalEl.showModal();
     });
   }

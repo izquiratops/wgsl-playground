@@ -1,17 +1,13 @@
-import safeQuery from './utils/safeQuery';
-import styleCss from './styles.css';
-import './components';
-
-// Load global styles
-const stylesheet = new CSSStyleSheet();
-stylesheet.replaceSync(styleCss);
-document.adoptedStyleSheets.push(stylesheet);
+import { $ } from "./utils/queries";
+import "./styles.css";
+import "./components";
 
 // Offline support
 if (navigator && navigator.serviceWorker) {
-    navigator.serviceWorker.register('offline.js');
+  navigator.serviceWorker.register("offline.js");
 }
 
 // Bootstrap project
-const bodyEl = safeQuery<HTMLBodyElement>('body');
-bodyEl.appendChild(document.createElement('code-editor-view'));
+const bodyEl = $<HTMLBodyElement>("body");
+const codeEditorEl = document.createElement("code-editor-view");
+bodyEl.appendChild(codeEditorEl);
