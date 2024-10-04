@@ -1,3 +1,5 @@
+type BaseComponentConstructor = typeof BaseComponent & { componentOptions: ComponentOptions };
+
 interface ComponentOptions {
     selector: string;
     styleUrls?: Array<string>,
@@ -24,7 +26,7 @@ abstract class BaseComponent extends HTMLElement {
     }
 
     private async initializeComponent() {
-        const constructor = this.constructor as typeof BaseComponent & { componentOptions: ComponentOptions };
+        const constructor = this.constructor as BaseComponentConstructor;
         const options = constructor.componentOptions;
 
         if (!options) {
@@ -34,6 +36,14 @@ abstract class BaseComponent extends HTMLElement {
         // TODO: XSS sanitizer
         if (options.templateUrl) {
             await this.loadTemplate(options.templateUrl);
+        }
+
+        if (options.styleUrls) {
+            const stylesheet = new CSSStyleSheet();
+            for (const styleUrl of options.styleUrls) {
+                stylesheet.replaceSync(styleUrl);
+                document.adoptedStyleSheets.push(stylesheet);
+            }
         }
 
         this.onLoad();
