@@ -1,4 +1,4 @@
-import { Component, BaseComponent } from "../../utils/baseComponent";
+import { Component, BaseComponent } from "../../utils/component";
 import templateUrl from "./index.html";
 
 @Component({

@@ -33,17 +33,12 @@ abstract class BaseComponent extends HTMLElement {
             throw new Error('Component options not found. Did you forget to use the @Component decorator?');
         }
 
-        // TODO: XSS sanitizer
         if (options.templateUrl) {
             await this.loadTemplate(options.templateUrl);
         }
 
         if (options.styleUrls) {
-            const stylesheet = new CSSStyleSheet();
-            for (const styleUrl of options.styleUrls) {
-                stylesheet.replaceSync(styleUrl);
-                document.adoptedStyleSheets.push(stylesheet);
-            }
+            await this.loadStyles(options.styleUrls);
         }
 
         this.onLoad();
@@ -52,7 +47,18 @@ abstract class BaseComponent extends HTMLElement {
     private async loadTemplate(templateUrl: string) {
         const response = await fetch(templateUrl);
         const html = await response.text();
+        // TODO: XSS sanitizer
         this.innerHTML = html;
+    }
+
+    private async loadStyles(styleUrls: string[]) {
+        const styles = document.createElement('style');
+        for (const styleUrl of styleUrls) {
+            const response = await fetch(styleUrl);
+            const css = await response.text();
+            styles.textContent += css;
+        }
+        this.appendChild(styles);
     }
 
     protected abstract onLoad(): void;

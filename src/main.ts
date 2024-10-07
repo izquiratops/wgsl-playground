@@ -1,5 +1,7 @@
 import { $ } from "./utils/queries";
-import "./style.css";
+import styleUrl from "./style.css";
+
+// Include web components
 import "./components";
 
 // Offline support
@@ -11,3 +13,12 @@ if (navigator && navigator.serviceWorker) {
 const bodyEl = $<HTMLBodyElement>("body");
 const codeEditorEl = document.createElement("code-editor-view");
 bodyEl.appendChild(codeEditorEl);
+
+// Apply global styles
+fetch(styleUrl)
+  .then(res => res.text())
+  .then(globalStyles => {
+    const styleElement = document.createElement('style');
+    styleElement.textContent = globalStyles;
+    bodyEl.appendChild(styleElement)
+  })

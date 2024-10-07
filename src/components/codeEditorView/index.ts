@@ -1,4 +1,4 @@
-import {Component, BaseComponent} from "../../utils/baseComponent";
+import {Component, BaseComponent} from "../../utils/component";
 import { $ } from "../../utils/queries";
 import Editor from "../../services/editor";
 import templateUrl from "./index.html";
@@ -16,8 +16,7 @@ class CodeEditorView extends BaseComponent {
     editor.setupTheme();
 
     editor.initializeWebGPU().catch(() => {
-      const errorModalEl = $<HTMLDialogElement>("#error-modal");
-      errorModalEl.showModal();
+      $<HTMLDialogElement>("#error-modal").showModal();
     });
   }
 }

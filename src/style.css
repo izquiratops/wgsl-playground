@@ -1,6 +1,4 @@
 :root {
-    color-scheme: dark;
-
     --spacing-s: 8px;
     --spacing-m: 16px;
     --spacing-l: 32px;
@@ -18,6 +16,7 @@ body {
     margin: 0;
     font-family: Helvetica, sans-serif;
     background: var(--theme-bg);
+    color-scheme: dark;
 }
 
 canvas {
@@ -28,10 +27,8 @@ canvas {
 
 button {
     border: none;
-    background: rgba(0, 0, 0, 0.2);
-
+    background: transparent;
     aspect-ratio: 1;
-    border-radius: var(--spacing-l);
 
     display: grid;
     place-content: center;
@@ -48,9 +45,44 @@ dialog {
     outline: none;
 }
 
+vertical-slider {
+    background-color: var(--theme-bg);
+    transition: background-color 0.3s ease;
+    cursor: col-resize;
+    flex: 4px 0 0;
+}
+
+vertical-slider:hover {
+    background-color: var(--theme-primary);
+}
+
+code-editor-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: var(--spacing-m);
+    padding-inline: var(--spacing-m);
+
+    #title {
+        color: var(--theme-detail);
+        margin-block: var(--spacing-s);
+        text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+        text-wrap: nowrap;
+    }
+}
+
+absolute-interface {
+    #exit-fullscreen-btn {
+        position: fixed;
+        top: 0;
+        left: 0;
+        margin: var(--spacing-m);
+    }
+}
+
 /* Components */
 
-.actions {
+.toolbar-actions {
     display: flex;
     justify-content: flex-end;
     flex-shrink: 0;
@@ -72,6 +104,7 @@ dialog {
 }
 
 .editor-wrapper {
+    flex: 1;
     overflow-y: scroll;
 }
 
@@ -81,13 +114,6 @@ dialog {
 
     display: grid;
     align-items: center;
-}
-
-/* SVG */
-
-.icon {
-    fill: var(--theme-detail);
-    stroke: var(--theme-detail);
 }
 
 /* Utility */
@@ -104,7 +130,7 @@ dialog {
 
 .diagonal-stripes {
     background-color: var(--theme-bg);
-    background: repeating-linear-gradient(-45deg, var(--theme-primary), var(--theme-primary) 20px, var(--theme-secondary) 20px, var(--theme-secondary) 40px);
+    background: repeating-linear-gradient(-45deg, var(--theme-primary), var(--theme-primary) 40px, var(--theme-secondary) 40px, var(--theme-secondary) 80px);
 }
 
 .polka-dots {

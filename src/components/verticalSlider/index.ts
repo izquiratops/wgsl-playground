@@ -1,10 +1,10 @@
-import { Component, BaseComponent } from "../../utils/baseComponent";
+import { Component, BaseComponent } from "../../utils/component";
 import { $ } from "../../utils/queries";
-import styleUrl from "./style.css";
+import templateUrl from "./index.html";
 
 @Component({
-  selector: 'vertial-slider',
-  styleUrls: [styleUrl]
+  selector: 'vertical-slider',
+  templateUrl
 })
 class VerticalSlider extends BaseComponent {
   private editorContainerEl!: HTMLTextAreaElement;
@@ -21,7 +21,7 @@ class VerticalSlider extends BaseComponent {
       document.addEventListener("mousemove", this.resizeCanvasEvent);
     });
 
-    document.addEventListener("mouseup", () => {
+    this.addEventListener("mouseup", () => {
       document.removeEventListener("mousemove", this.resizeCanvasEvent);
     });
   }

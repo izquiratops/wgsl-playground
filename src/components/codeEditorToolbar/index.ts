@@ -1,29 +1,25 @@
-import { Component, BaseComponent } from "../../utils/baseComponent";
+import { Component, BaseComponent } from "../../utils/component";
 import { $ } from "../../utils/queries";
 import Shared from "../../services/shared";
 import templateUrl from "./index.html";
-import styleUrl from "./style.css";
 
 @Component({
   selector: 'code-editor-toolbar',
-  styleUrls: [styleUrl],
   templateUrl
 })
 class CodeEditorToolbar extends BaseComponent {
   protected onLoad() {
-    const drawButtonEl = $<HTMLButtonElement>("#draw-btn");
-    drawButtonEl.addEventListener("click", this.runShaderCode);
+    $<HTMLButtonElement>("#draw-btn")
+      .addEventListener("click", this.runShaderCode);
 
-    const fullscreenButtonEl = $<HTMLButtonElement>("#fullscreen-btn");
-    fullscreenButtonEl.addEventListener("click", Shared.toggleFullscreen);
+    $<HTMLButtonElement>("#fullscreen-btn")
+      .addEventListener("click", Shared.toggleFullscreen);
 
-    const githubButtonEl = $<HTMLButtonElement>("#github-btn");
-    githubButtonEl.addEventListener("click", this.redirectToGithub);
+    $<HTMLButtonElement>("#github-btn")
+      .addEventListener("click", this.redirectToGithub);
 
-    const aspectRatioButtonEl = $<HTMLButtonElement>(
-      "#toggle-aspect-ratio-btn",
-    );
-    aspectRatioButtonEl.addEventListener("click", this.toggleAspectRatio);
+    $<HTMLButtonElement>("#toggle-aspect-ratio-btn")
+      .addEventListener("click", this.toggleAspectRatio);
   }
 
   private runShaderCode() {
