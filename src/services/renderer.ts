@@ -1,5 +1,5 @@
-import { BufferUsage, textureFormat } from "../constants";
-import { UpdateResponse } from "../types";
+import { BufferUsage, textureFormat } from "../utils/constants";
+import { UpdateResponse } from "./types";
 import Shared from "./shared";
 
 class Renderer {
@@ -69,7 +69,7 @@ class Renderer {
     }
 
     updatePipeline(): UpdateResponse {
-        const shaderCode = Shared.editorCode;
+        const shaderCode = Shared.shaderEditorCode;
 
         const presentationFormat = navigator.gpu.getPreferredCanvasFormat();
         const pipeline = this.device.createRenderPipeline({

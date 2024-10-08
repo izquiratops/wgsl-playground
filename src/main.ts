@@ -1,19 +1,24 @@
-import Editor from './services/editor';
-import './components';
+import { $ } from "./utils/queries";
+import styleUrl from "./style.css";
 
-async function main() {
-    const editor = new Editor();
-    const errorElementEl = document.querySelector('#error') as HTMLDialogElement;
+// Include web components
+import "./components";
 
-    if (navigator && navigator.serviceWorker) {
-		navigator.serviceWorker.register('offline.js');
-	}
-
-    try {
-        await editor.initializeWebGPU();
-    } catch {
-        errorElementEl.showModal();
-    }
+// Offline support
+if (navigator && navigator.serviceWorker) {
+  navigator.serviceWorker.register("offline.js");
 }
 
-main();
+// Bootstrap project
+const bodyEl = $<HTMLBodyElement>("body");
+const codeEditorEl = document.createElement("code-editor-view");
+bodyEl.appendChild(codeEditorEl);
+
+// Apply global styles
+fetch(styleUrl)
+  .then(res => res.text())
+  .then(globalStyles => {
+    const styleElement = document.createElement('style');
+    styleElement.textContent = globalStyles;
+    bodyEl.appendChild(styleElement)
+  })

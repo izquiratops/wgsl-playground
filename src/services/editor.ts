@@ -1,27 +1,22 @@
 import { EditorView, basicSetup } from 'codemirror';
 import { wgsl } from "@iizukak/codemirror-lang-wgsl";
+
 // WGSL-playground modules
 import Renderer from './renderer';
 import Shared from './shared';
-import Theme from '../utils/theme.json';
+import Theme from '../utils/editorTheme.json';
+
 // Codemirror OneDark theme
-import { oneDark } from '../utils/oneDarkTheme';
+import { oneDark } from '../utils/codemirrorTheme';
+
 // Default WGSL code
 import defaultShader from '../shaders/default.wgsl';
 
 class Editor {
-    private canvasEl = document.querySelector('canvas') as HTMLCanvasElement;
+    constructor() {}
 
-    constructor() {
-        this.setupTheme();
-        this.setupCodemirror();
-    }
-
-    private setupTheme() {
-        const lenght = Theme['UpperBar'].length;
-        const idx = Math.floor(Math.random() * lenght);
-        const currentTheme: any = Theme['UpperBar'][idx];
-
+    setupTheme() {
+        const currentTheme: any = Theme['UpperBar'][0];
         for (const property of Object.keys(currentTheme)) {
             document.documentElement.style.setProperty(
                 property,
@@ -30,7 +25,7 @@ class Editor {
         }
     }
 
-    private setupCodemirror() {
+    setupCodemirror() {
         const vertexCode = localStorage.getItem('shaderCode') ?? defaultShader;
 
         Shared.shaderEditor = new EditorView({
@@ -40,8 +35,17 @@ class Editor {
         });
     }
 
+    setupHotkeys() {
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                Shared.toggleFullscreen();
+            }
+        });
+    }
+
     async initializeWebGPU(): Promise<void> {
-        const context = this.canvasEl.getContext('webgpu');
+        const canvasEl = document.querySelector('canvas') as HTMLCanvasElement;
+        const context = canvasEl.getContext('webgpu');
 
         if (context && 'gpu' in navigator) {
             const adapter = await navigator.gpu.requestAdapter();
@@ -51,7 +55,7 @@ class Editor {
             }
 
             const device = await adapter.requestDevice()
-            Shared.renderer = new Renderer(device, this.canvasEl, context);
+            Shared.renderer = new Renderer(device, canvasEl, context);
             Shared.renderer.render();
 
             adapter.features.forEach(console.log);

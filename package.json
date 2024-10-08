@@ -1,13 +1,17 @@
 {
   "name": "webgpu-playground",
-  "version": "1.0.0",
-  "scripts": {
-    "dev": "node ./scripts/dev.mjs",
-    "build": "node ./scripts/build.mjs",
-    "clean": "rm -rf ./dist/js"
-  },
-  "author": "Jordi Izquierdo",
+  "description": "A playground for experimenting with WebGPU.",
   "license": "ISC",
+  "author": {
+    "name": "Jordi Izquierdo",
+    "email": "jordi.izquierdo.casares@gmail.com"
+  },
+  "scripts": {
+    "prepare": "git submodule update --init && npm run 'build-bundler'",
+    "build-bundler": "cd dobunezumi && go build",
+    "dev": "./dobunezumi/dobunezumi serve --entry ./src/main.ts --dist ./dist",
+    "build": "./dobunezumi/dobunezumi build --entry ./src/main.ts --dist ./dist --minify true"
+  },
   "devDependencies": {
     "@webgpu/types": "^0.1.48",
     "esbuild": "^0.24.0"

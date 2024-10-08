@@ -14,12 +14,8 @@
         "noUncheckedIndexedAccess": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "resolveJsonModule": true,
     },
     "include": [
-        "./**/*.ts"
-    ],
-    "exclude": [
-        "node_modules/**/*"
+        "src/**/*.ts"
     ],
 }

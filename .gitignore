@@ -1,4 +1,7 @@
-node_modules
-dist/js
-meta.json
 .DS_STORE
+node_modules
+meta.json
+dist
+!dist/favicon.ico
+!dist/index.html
+!dist/offline.js
