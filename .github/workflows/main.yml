@@ -63,15 +63,12 @@ jobs:
           path: ${{ needs.download-dobunezumi.outputs.dobunezumi_path }}
           key: dobunezumi-${{ needs.download-dobunezumi.outputs.dobunezumi_version }}
 
-      - name: Add dobunezumi to GITHUB_PATH
-        run: echo ${{ needs.download-dobunezumi.outputs.dobunezumi_path }} >> $GITHUB_PATH
-
       - name: Install JS dependencies
         run: npm ci
 
       - name: Build project
         run: |
-          dobunezumi build --entry ./src/main.ts --dist ./dist --minify true
+          ${{ needs.download-dobunezumi.outputs.dobunezumi_path }} build --entry ./src/main.ts --dist ./dist --minify true
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
