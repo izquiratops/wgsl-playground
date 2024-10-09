@@ -29,20 +29,20 @@ jobs:
         id: cache-dobunezumi
         uses: actions/cache@v4
         with:
-          path: ~/.dobunezumi
+          path: ~/dobunezumi
           key: dobunezumi-${{ steps.get-version.outputs.version }}
 
       - name: Download dobunezumi if not cached
         if: steps.cache-dobunezumi.outputs.cache-hit != 'true'
         run: |
           DOWNLOAD_URL=$(curl -s https://api.github.com/repos/izquiratops/dobunezumi/releases/latest | jq -r '.assets[] | select(.name | contains("linux-amd64")) | .browser_download_url')
-          curl -L $DOWNLOAD_URL -o ~/.dobunezumi.gz
-          gunzip ~/.dobunezumi.gz
-          chmod +x ~/.dobunezumi
+          curl -L $DOWNLOAD_URL -o ~/dobunezumi.gz
+          gunzip ~/dobunezumi.gz
+          chmod +x ~/dobunezumi
 
       - name: Set dobunezumi path
         id: set-path
-        run: echo "dobunezumi_path=$HOME/.dobunezumi" >> $GITHUB_OUTPUT
+        run: echo "dobunezumi_path=$HOME/dobunezumi" >> $GITHUB_OUTPUT
 
   build-and-deploy:
     needs: download-dobunezumi
@@ -57,9 +57,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Restore dobunezumi from cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
-          path: ~/.dobunezumi
+          path: ~/dobunezumi
           key: dobunezumi-${{ needs.download-dobunezumi.outputs.dobunezumi_version }}
 
       - name: Add dobunezumi to GITHUB_PATH
