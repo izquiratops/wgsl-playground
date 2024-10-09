@@ -69,7 +69,8 @@ jobs:
         run: npm ci
 
       - name: Build project
-        run: npm run build
+        run: |
+          dobunezumi build --entry ./src/main.ts --dist ./dist --minify true
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
