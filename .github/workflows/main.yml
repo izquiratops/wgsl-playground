@@ -27,7 +27,7 @@ jobs:
 
       - name: Cache dobunezumi
         id: cache-dobunezumi
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.dobunezumi
           key: dobunezumi-${{ steps.get-version.outputs.version }}
@@ -37,8 +37,8 @@ jobs:
         run: |
           DOWNLOAD_URL=$(curl -s https://api.github.com/repos/izquiratops/dobunezumi/releases/latest | jq -r '.assets[] | select(.name | contains("linux-amd64")) | .browser_download_url')
           curl -L $DOWNLOAD_URL -o ~/.dobunezumi.gz
-          gunzip -c ~/.dobunezumi.gz
-          chmod +x ~/.dobunezumi/dobunezumi
+          gunzip ~/.dobunezumi.gz
+          chmod +x ~/.dobunezumi
 
       - name: Set dobunezumi path
         id: set-path
