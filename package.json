@@ -7,14 +7,13 @@
     "email": "jordi.izquierdo.casares@gmail.com"
   },
   "scripts": {
-    "prepare": "git submodule update --init && npm run 'build-bundler'",
+    "prepare": "git submodule update --init --remote",
     "build-bundler": "cd dobunezumi && go build",
     "dev": "./dobunezumi/dobunezumi serve --entry ./src/main.ts --dist ./dist",
     "build": "./dobunezumi/dobunezumi build --entry ./src/main.ts --dist ./dist --minify true"
   },
   "devDependencies": {
     "@webgpu/types": "^0.1.48",
-    "esbuild": "^0.24.0"
   },
   "dependencies": {
     "@iizukak/codemirror-lang-wgsl": "^0.3.0",
