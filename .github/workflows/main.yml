@@ -24,6 +24,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: true
+<<<<<<< HEAD
+=======
+          token: ${{ secrets.PAT_TOKEN }}
+>>>>>>> 4eb3dc448d39195df9227bcc6f52ae6346957d0b
 
       - name: Install dependencies
         run: npm ci
