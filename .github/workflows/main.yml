@@ -30,7 +30,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/dobunezumi
-          key: dobunezumi-${{ steps.get-version.outputs.version }}
+          key: dobunezumi-${{ steps.get-version.outputs.dobunezumi_version }}
           lookup-only: true
 
       - name: Download dobunezumi if not cached
@@ -43,7 +43,7 @@ jobs:
 
       - name: Set dobunezumi path
         id: set-path
-        run: echo "dobunezumi_path=$HOME/dobunezumi/dobunezumi" >> $GITHUB_OUTPUT
+        run: echo "dobunezumi_path=~/dobunezumi" >> $GITHUB_OUTPUT
 
   build-and-deploy:
     needs: download-dobunezumi
@@ -64,7 +64,8 @@ jobs:
           key: dobunezumi-${{ needs.download-dobunezumi.outputs.dobunezumi_version }}
 
       - name: Add dobunezumi to GITHUB_PATH
-        run: echo "${{ needs.download-dobunezumi.outputs.dobunezumi_path }}" >> $GITHUB_PATH
+        run: |
+          echo "export PATH=\$PATH:${{ needs.download-dobunezumi.outputs.dobunezumi_path }}" >> $GITHUB_ENV
 
       - name: Install JS dependencies
         run: npm ci
