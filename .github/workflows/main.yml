@@ -22,12 +22,20 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          submodules: true
-<<<<<<< HEAD
-=======
-          token: ${{ secrets.PAT_TOKEN }}
->>>>>>> 4eb3dc448d39195df9227bcc6f52ae6346957d0b
+
+      - name: Get dobunezumi download URL
+        id: get_download_url
+        run: |
+          DOWNLOAD_URL=$(curl -s https://api.github.com/repos/izquiratops/dobunezumi/releases/latest | jq -r '.assets[] | select(.name | contains("linux-arm64")) | .browser_download_url')
+          echo "DOBUNEZUMI_DOWNLOAD_URL=$DOWNLOAD_URL" >> $GITHUB_ENV
+          echo "Download URL: $DOWNLOAD_URL"
+
+      - name: Download and extract dobunezumi
+        run: |
+          curl -L ${{ env.DOBUNEZUMI_DOWNLOAD_URL }} -o dobunezumi.gz
+          gunzip dobunezumi.gz
+          chmod +x dobunezumi
+          mv dobunezumi /usr/local/bin/
 
       - name: Install dependencies
         run: npm ci
