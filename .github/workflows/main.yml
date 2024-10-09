@@ -60,12 +60,11 @@ jobs:
       - name: Restore dobunezumi from cache
         uses: actions/cache@v4
         with:
-          path: ~/dobunezumi
+          path: ${{ needs.download-dobunezumi.outputs.dobunezumi_path }}
           key: dobunezumi-${{ needs.download-dobunezumi.outputs.dobunezumi_version }}
 
       - name: Add dobunezumi to GITHUB_PATH
-        run: |
-          echo "export PATH=\$PATH:${{ needs.download-dobunezumi.outputs.dobunezumi_path }}" >> $GITHUB_ENV
+        run: echo ${{ needs.download-dobunezumi.outputs.dobunezumi_path }} >> $GITHUB_PATH
 
       - name: Install JS dependencies
         run: npm ci
