@@ -36,8 +36,8 @@ jobs:
         if: steps.cache-dobunezumi.outputs.cache-hit != 'true'
         run: |
           DOWNLOAD_URL=$(curl -s https://api.github.com/repos/izquiratops/dobunezumi/releases/latest | jq -r '.assets[] | select(.name | contains("linux-amd64")) | .browser_download_url')
-          curl -L $DOWNLOAD_URL -o ~/.dobunezumi/dobunezumi.gz
-          gunzip ~/.dobunezumi/dobunezumi.gz
+          curl -L $DOWNLOAD_URL -o ~/.dobunezumi.gz
+          gunzip -c ~/.dobunezumi.gz
           chmod +x ~/.dobunezumi/dobunezumi
 
       - name: Set dobunezumi path
