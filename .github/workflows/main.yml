@@ -12,7 +12,40 @@ permissions:
   id-token: write
 
 jobs:
+  download-dobunezumi:
+    runs-on: ubuntu-latest
+    outputs:
+      dobunezumi_path: ${{ steps.set-path.outputs.dobunezumi_path }}
+      dobunezumi_version: ${{ steps.get-version.outputs.dobunezumi_version }}
+
+    steps:
+      - name: Get latest dobunezumi version
+        id: get-version
+        run: |
+          VERSION=$(curl -s https://api.github.com/repos/izquiratops/dobunezumi/releases/latest | jq -r '.tag_name')
+          echo "dobunezumi_version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Cache dobunezumi
+        id: cache-dobunezumi
+        uses: actions/cache@v3
+        with:
+          path: ~/.dobunezumi
+          key: dobunezumi-${{ steps.get-version.outputs.version }}
+
+      - name: Download dobunezumi if not cached
+        if: steps.cache-dobunezumi.outputs.cache-hit != 'true'
+        run: |
+          DOWNLOAD_URL=$(curl -s https://api.github.com/repos/izquiratops/dobunezumi/releases/latest | jq -r '.assets[] | select(.name | contains("linux-amd64")) | .browser_download_url')
+          curl -L $DOWNLOAD_URL -o ~/.dobunezumi/dobunezumi.gz
+          gunzip ~/.dobunezumi/dobunezumi.gz
+          chmod +x ~/.dobunezumi/dobunezumi
+
+      - name: Set dobunezumi path
+        id: set-path
+        run: echo "dobunezumi_path=$HOME/.dobunezumi" >> $GITHUB_OUTPUT
+
   build-and-deploy:
+    needs: download-dobunezumi
     runs-on: ubuntu-latest
 
     environment:
@@ -23,26 +56,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Get dobunezumi download URL
-        id: get_download_url
-        run: |
-          DOWNLOAD_URL=$(curl -s https://api.github.com/repos/izquiratops/dobunezumi/releases/latest | jq -r '.assets[] | select(.name | contains("linux-amd64")) | .browser_download_url')
-          echo "DOBUNEZUMI_DOWNLOAD_URL=$DOWNLOAD_URL" >> $GITHUB_ENV
-          echo "Download URL: $DOWNLOAD_URL"
+      - name: Restore dobunezumi from cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.dobunezumi
+          key: dobunezumi-${{ needs.download-dobunezumi.outputs.dobunezumi_version }}
 
-      - name: Download and extract dobunezumi
-        run: |
-          curl -L ${{ env.DOBUNEZUMI_DOWNLOAD_URL }} -o dobunezumi.gz
-          gunzip dobunezumi.gz
-          chmod +x dobunezumi
-          mv dobunezumi /usr/local/bin/
+      - name: Add dobunezumi to GITHUB_PATH
+        run: echo "${{ needs.download-dobunezumi.outputs.dobunezumi_path }}" >> $GITHUB_PATH
 
-      - name: Install dependencies
+      - name: Install JS dependencies
         run: npm ci
 
       - name: Build project
-        run: |
-          dobunezumi build --entry ./src/main.ts --dist ./dist --minify true
+        run: npm run build
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
