@@ -14,15 +14,16 @@ permissions:
 jobs:
   download-dobunezumi:
     runs-on: ubuntu-latest
+    env:
+      LATEST_RELEASE_URL: https://api.github.com/repos/izquiratops/dobunezumi/releases/latest
     outputs:
-      dobunezumi_path: ${{ steps.set-path.outputs.dobunezumi_path }}
       dobunezumi_version: ${{ steps.get-version.outputs.dobunezumi_version }}
 
     steps:
       - name: Get latest dobunezumi version
         id: get-version
         run: |
-          VERSION=$(curl -s https://api.github.com/repos/izquiratops/dobunezumi/releases/latest | jq -r '.tag_name')
+          VERSION=$(curl -s $LATEST_RELEASE_URL | jq -r '.tag_name')
           echo "dobunezumi_version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Cache dobunezumi
@@ -36,14 +37,10 @@ jobs:
       - name: Download dobunezumi if not cached
         if: steps.cache-dobunezumi.outputs.cache-hit != 'true'
         run: |
-          DOWNLOAD_URL=$(curl -s https://api.github.com/repos/izquiratops/dobunezumi/releases/latest | jq -r '.assets[] | select(.name | contains("linux-amd64")) | .browser_download_url')
+          DOWNLOAD_URL=$(curl -s $LATEST_RELEASE_URL | jq -r '.assets[] | select(.name | contains("linux-amd64")) | .browser_download_url')
           curl -L $DOWNLOAD_URL -o ~/dobunezumi.gz
           gunzip ~/dobunezumi.gz
           chmod +x ~/dobunezumi
-
-      - name: Set dobunezumi path
-        id: set-path
-        run: echo "dobunezumi_path=~/dobunezumi" >> $GITHUB_OUTPUT
 
   build-and-deploy:
     needs: download-dobunezumi
@@ -60,7 +57,7 @@ jobs:
       - name: Restore dobunezumi from cache
         uses: actions/cache@v4
         with:
-          path: ${{ needs.download-dobunezumi.outputs.dobunezumi_path }}
+          path: ~/dobunezumi
           key: dobunezumi-${{ needs.download-dobunezumi.outputs.dobunezumi_version }}
 
       - name: Install JS dependencies
@@ -68,7 +65,7 @@ jobs:
 
       - name: Build project
         run: |
-          ${{ needs.download-dobunezumi.outputs.dobunezumi_path }} build --entry ./src/main.ts --dist ./dist --minify true
+          ~/dobunezumi build --entry ./src/main.ts --dist ./dist --minify true
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
