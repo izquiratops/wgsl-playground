@@ -1,5 +1,5 @@
 import { $ } from "./utils/queries";
-import styleUrl from "./style.css";
+import "./style.css";
 
 // Include web components
 import "./components";
@@ -14,11 +14,3 @@ const bodyEl = $<HTMLBodyElement>("body");
 const codeEditorEl = document.createElement("code-editor-view");
 bodyEl.appendChild(codeEditorEl);
 
-// Apply global styles
-fetch(styleUrl)
-  .then(res => res.text())
-  .then(globalStyles => {
-    const styleElement = document.createElement('style');
-    styleElement.textContent = globalStyles;
-    bodyEl.appendChild(styleElement)
-  })

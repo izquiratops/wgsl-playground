@@ -5,6 +5,7 @@ import { wgsl } from "@iizukak/codemirror-lang-wgsl";
 import Renderer from './renderer';
 import Shared from './shared';
 import Theme from '../utils/editorTheme.json';
+import { $ } from '../utils/queries';
 
 // Codemirror OneDark theme
 import { oneDark } from '../utils/codemirrorTheme';
@@ -31,7 +32,7 @@ class Editor {
         Shared.shaderEditor = new EditorView({
             doc: vertexCode,
             extensions: [basicSetup, oneDark, wgsl()],
-            parent: document.querySelector('#shader-editor') as HTMLDivElement
+            parent: $<HTMLDivElement>('#shader-editor')
         });
     }
 
@@ -44,7 +45,7 @@ class Editor {
     }
 
     async initializeWebGPU(): Promise<void> {
-        const canvasEl = document.querySelector('canvas') as HTMLCanvasElement;
+        const canvasEl = $<HTMLCanvasElement>('canvas');
         const context = canvasEl.getContext('webgpu');
 
         if (context && 'gpu' in navigator) {
@@ -54,11 +55,30 @@ class Editor {
                 throw Error('Adapter not found');
             }
 
-            const device = await adapter.requestDevice()
-            Shared.renderer = new Renderer(device, canvasEl, context);
-            Shared.renderer.render();
+            const device = await adapter.requestDevice();
 
-            adapter.features.forEach(console.log);
+            // Initialize the renderer before start listening for resize events
+            Shared.renderer = new Renderer(device, canvasEl, context);
+
+            // Run render function on demand every time the canvas is resized
+            const observer = new ResizeObserver(entries => {
+                for (const entry of entries) {
+                    if (entry.contentBoxSize[0] === undefined) {
+                        throw new Error("Couldn't get content size of the canvas element");
+                    }
+
+                    const width = entry.contentBoxSize[0].inlineSize;
+                    const height = entry.contentBoxSize[0].blockSize;
+                    const canvas = entry.target as HTMLCanvasElement;
+
+                    canvas.width = Math.max(1, Math.min(width, device.limits.maxTextureDimension2D));
+                    canvas.height = Math.max(1, Math.min(height, device.limits.maxTextureDimension2D));
+
+                    Shared.renderer?.render();
+                }
+            });
+
+            observer.observe(canvasEl);
         } else {
             throw Error('Context not found');
         }

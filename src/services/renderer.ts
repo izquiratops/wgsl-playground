@@ -61,8 +61,6 @@ class Renderer {
 
             const commandBuffer = commandEncoder.finish();
             this.device.queue.submit([commandBuffer]);
-
-            requestAnimationFrame(frame);
         }
 
         requestAnimationFrame(frame);
