@@ -46,7 +46,8 @@ class Editor {
 
     async initializeWebGPU(): Promise<void> {
         const canvasEl = $<HTMLCanvasElement>('canvas');
-        const context = canvasEl.getContext('webgpu');
+        // const context = canvasEl.getContext('webgpu');
+        const context = false;
 
         if (context && 'gpu' in navigator) {
             const adapter = await navigator.gpu.requestAdapter();

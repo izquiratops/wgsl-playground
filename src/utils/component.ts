@@ -51,6 +51,7 @@ abstract class BaseComponent extends HTMLElement {
         this.innerHTML = html;
     }
 
+    // TODO: I'm not using this for now, but it could be useful in the future
     private async loadStyles(styleUrls: string[]) {
         const styles = document.createElement('style');
         for (const styleUrl of styleUrls) {

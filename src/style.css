@@ -2,11 +2,12 @@
     --spacing-s: 8px;
     --spacing-m: 16px;
     --spacing-l: 32px;
-    --theme-detail: #F4F4F4;
-    --theme-primary: #E2BFD9;
-    --theme-secondary: #C8A1E0;
-    --theme-bg: #282C34;
-    --theme-bg-darker: #333842;
+    --theme-detail: #F4F4F4; /* Almost white */
+    --theme-primary: #E2BFD9; /* Kind of pink/red */
+    --theme-secondary: #C8A1E0; /* Kind of pink/red 2 */
+    --theme-bg-lighter: #333840; /* Background for slider or borders */
+    --theme-bg: #282C34; /* background */
+    --theme-bg-darker: #333842; /* ????? */
     --theme-stripes-thickness: 72px;
     --default-editor-width: 700px;
 }
@@ -26,13 +27,14 @@ canvas {
 }
 
 button {
+    /* Buttons are SVGs over transparent containers */
     border: none;
     background: transparent;
     aspect-ratio: 1;
-
+    /* Center the SVG */
     display: grid;
     place-content: center;
-
+    /* Let the user know it's clickable */
     :hover {
         cursor: pointer;
     }
@@ -41,27 +43,32 @@ button {
 dialog {
     background: var(--theme-bg);
     border: 8px solid black;
-    color: white;
+    color: var(--theme-detail);
     outline: none;
 }
 
 vertical-slider {
-    background-color: var(--theme-bg);
+    background-color: var(--theme-bg-lighter);
     transition: background-color 0.3s ease;
     cursor: col-resize;
-    flex: 4px 0 0;
+    flex: 6px 0 0;
 }
 
 vertical-slider:hover {
-    background-color: var(--theme-primary);
+    background-color: var(--theme-secondary);
 }
 
 code-editor-toolbar {
+    /* Layout */
     display: flex;
     align-items: center;
     justify-content: space-between;
+    /* Spacing */
     column-gap: var(--spacing-m);
     padding-inline: var(--spacing-m);
+    /* Hues */
+    background-color: var(--theme-primary);
+    border-bottom: 4px solid var(--theme-bg-lighter);
 
     #title {
         color: var(--theme-detail);
@@ -71,13 +78,12 @@ code-editor-toolbar {
     }
 }
 
-absolute-interface {
-    #exit-fullscreen-btn {
-        position: fixed;
-        top: 0;
-        left: 0;
-        margin: var(--spacing-m);
-    }
+#exit-fullscreen-btn {
+    /* Button hanging on the top left corner in fullscreen mode */
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: var(--spacing-m);
 }
 
 /* Components */
@@ -96,7 +102,7 @@ absolute-interface {
 }
 
 .editor-container {
-    /* Applies this width if the screen is wider enough */
+    /* Applies width if the screen is wider enough */
     width: var(--default-editor-width);
 
     display: flex;
@@ -111,9 +117,8 @@ absolute-interface {
 .canvas-wrapper {
     position: relative;
     flex: auto 1 1;
-
     display: grid;
-    align-items: center;
+    justify-items: center;
 }
 
 /* Utility */
@@ -122,16 +127,7 @@ absolute-interface {
     display: none;
 }
 
-.keep-aspect-ratio {
-    height: auto;
-}
-
 /* Patterns */
-
-.diagonal-stripes {
-    background-color: var(--theme-bg);
-    background: repeating-linear-gradient(-45deg, var(--theme-primary), var(--theme-primary) 40px, var(--theme-secondary) 40px, var(--theme-secondary) 80px);
-}
 
 .polka-dots {
     background-color: var(--theme-bg);

@@ -1,6 +1,7 @@
 import { $ } from "./utils/queries";
-import "./style.css";
 
+// Include global styles
+import "./style.css";
 // Include web components
 import "./components";
 
@@ -10,7 +11,5 @@ if (navigator && navigator.serviceWorker) {
 }
 
 // Bootstrap project
-const bodyEl = $<HTMLBodyElement>("body");
 const codeEditorEl = document.createElement("code-editor-view");
-bodyEl.appendChild(codeEditorEl);
-
+$<HTMLBodyElement>("body").appendChild(codeEditorEl);
