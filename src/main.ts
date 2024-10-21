@@ -1,6 +1,7 @@
 import { $ } from "./utils/queries";
-import styleUrl from "./style.css";
 
+// Include global styles
+import "./style.css";
 // Include web components
 import "./components";
 
@@ -10,15 +11,5 @@ if (navigator && navigator.serviceWorker) {
 }
 
 // Bootstrap project
-const bodyEl = $<HTMLBodyElement>("body");
 const codeEditorEl = document.createElement("code-editor-view");
-bodyEl.appendChild(codeEditorEl);
-
-// Apply global styles
-fetch(styleUrl)
-  .then(res => res.text())
-  .then(globalStyles => {
-    const styleElement = document.createElement('style');
-    styleElement.textContent = globalStyles;
-    bodyEl.appendChild(styleElement)
-  })
+$<HTMLBodyElement>("body").appendChild(codeEditorEl);

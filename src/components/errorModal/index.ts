@@ -6,7 +6,9 @@ import templateUrl from "./index.html";
   templateUrl
 })
 class ErrorModal extends BaseComponent {
-  protected onLoad() {}
+  protected onLoad() {
+    this.querySelector('dialog')?.showModal();
+  }
 }
 
 export default ErrorModal;

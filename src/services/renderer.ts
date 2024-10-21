@@ -10,6 +10,8 @@ class Renderer {
     ) {}
 
     render() {
+        console.debug('Rendering...');
+
         this.context.configure({
             device: this.device,
             format: textureFormat,
@@ -41,7 +43,7 @@ class Renderer {
 
             const textureView = this.context.getCurrentTexture().createView();
             renderPassDescriptor.colorAttachments[0]!.view = textureView;
-            
+
             uniformsArrayBuffer[2] = t;
             this.device.queue.writeBuffer(
                 uniformsBuffer,
@@ -50,7 +52,7 @@ class Renderer {
                 uniformsArrayBuffer.byteOffset,
                 uniformsArrayBuffer.byteLength
             );
-            
+
             const commandEncoder = this.device.createCommandEncoder({ label: 'main encoder' });
             const passEncoder = commandEncoder.beginRenderPass(
                 renderPassDescriptor as GPURenderPassDescriptor
@@ -61,8 +63,6 @@ class Renderer {
 
             const commandBuffer = commandEncoder.finish();
             this.device.queue.submit([commandBuffer]);
-
-            requestAnimationFrame(frame);
         }
 
         requestAnimationFrame(frame);

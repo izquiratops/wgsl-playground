@@ -17,25 +17,18 @@ class CodeEditorToolbar extends BaseComponent {
 
     $<HTMLButtonElement>("#github-btn")
       .addEventListener("click", this.redirectToGithub);
-
-    $<HTMLButtonElement>("#toggle-aspect-ratio-btn")
-      .addEventListener("click", this.toggleAspectRatio);
   }
 
   private runShaderCode() {
     // This flag makes the pipeline update on the next frame
     Shared.needsUpdate = true;
+    Shared.renderer?.render();
     // Autosaves on every re-run
     localStorage.setItem("shaderCode", Shared.shaderEditorCode);
   }
 
   private redirectToGithub() {
     window.open("https://github.com/izquiratops/wgsl-playground", "_blank");
-  }
-
-  private toggleAspectRatio() {
-    const canvasEl = $<HTMLCanvasElement>("#canvas");
-    canvasEl.classList.toggle("keep-aspect-ratio");
   }
 }
 

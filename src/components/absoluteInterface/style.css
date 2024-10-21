@@ -1,8 +1,0 @@
-absolute-interface {
-    #exit-fullscreen-btn {
-        position: fixed;
-        top: 0;
-        left: 0;
-        margin: var(--spacing-m);
-    }
-}

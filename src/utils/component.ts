@@ -20,6 +20,8 @@ function Component(options: ComponentOptions) {
 }
 
 abstract class BaseComponent extends HTMLElement {
+    selector: string | undefined;
+
     constructor() {
         super();
         this.initializeComponent();
@@ -32,6 +34,8 @@ abstract class BaseComponent extends HTMLElement {
         if (!options) {
             throw new Error('Component options not found. Did you forget to use the @Component decorator?');
         }
+
+        this.selector = options.selector;
 
         if (options.templateUrl) {
             await this.loadTemplate(options.templateUrl);
@@ -51,6 +55,7 @@ abstract class BaseComponent extends HTMLElement {
         this.innerHTML = html;
     }
 
+    // TODO: I'm not using this for now, but it could be useful in the future
     private async loadStyles(styleUrls: string[]) {
         const styles = document.createElement('style');
         for (const styleUrl of styleUrls) {

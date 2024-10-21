@@ -15,9 +15,13 @@ class CodeEditorView extends BaseComponent {
     editor.setupHotkeys();
     editor.setupTheme();
 
-    editor.initializeWebGPU().catch(() => {
-      $<HTMLDialogElement>("#error-modal").showModal();
-    });
+    try {
+      editor.initializeWebGPU();
+    } catch {
+      const bodyEl = $<HTMLBodyElement>("body");
+      const modalEl = document.createElement("error-modal");
+      bodyEl.appendChild(modalEl);
+    }
   }
 }
 
