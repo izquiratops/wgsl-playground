@@ -30,12 +30,6 @@ class CodeEditorToolbar extends BaseComponent {
   private redirectToGithub() {
     window.open("https://github.com/izquiratops/wgsl-playground", "_blank");
   }
-
-  // TODO: resize is applied through the observer now
-  private toggleAspectRatio() {
-    const canvasEl = $<HTMLCanvasElement>("canvas");
-    canvasEl.classList.toggle("keep-aspect-ratio");
-  }
 }
 
 export default CodeEditorToolbar;

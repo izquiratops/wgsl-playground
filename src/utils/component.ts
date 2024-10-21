@@ -20,6 +20,8 @@ function Component(options: ComponentOptions) {
 }
 
 abstract class BaseComponent extends HTMLElement {
+    selector: string | undefined;
+
     constructor() {
         super();
         this.initializeComponent();
@@ -32,6 +34,8 @@ abstract class BaseComponent extends HTMLElement {
         if (!options) {
             throw new Error('Component options not found. Did you forget to use the @Component decorator?');
         }
+
+        this.selector = options.selector;
 
         if (options.templateUrl) {
             await this.loadTemplate(options.templateUrl);

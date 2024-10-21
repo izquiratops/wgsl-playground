@@ -16,6 +16,21 @@ import defaultShader from '../shaders/default.wgsl';
 class Editor {
     constructor() {}
 
+    private setNewCanvasSize(device: GPUDevice, entry: ResizeObserverEntry) {
+        if (entry.contentBoxSize[0] === undefined) {
+            throw new Error("Couldn't get content size of the canvas element");
+        }
+
+        const width = entry.contentBoxSize[0].inlineSize;
+        const height = entry.contentBoxSize[0].blockSize;
+        const canvas = entry.target as HTMLCanvasElement;
+
+        canvas.width = Math.max(1, Math.min(width, device.limits.maxTextureDimension2D));
+        canvas.height = Math.max(1, Math.min(height, device.limits.maxTextureDimension2D));
+
+        Shared.renderer?.render();
+    }
+
     setupTheme() {
         const currentTheme: any = Theme['UpperBar'][0];
         for (const property of Object.keys(currentTheme)) {
@@ -46,8 +61,7 @@ class Editor {
 
     async initializeWebGPU(): Promise<void> {
         const canvasEl = $<HTMLCanvasElement>('canvas');
-        // const context = canvasEl.getContext('webgpu');
-        const context = false;
+        const context = canvasEl.getContext('webgpu');
 
         if (context && 'gpu' in navigator) {
             const adapter = await navigator.gpu.requestAdapter();
@@ -64,18 +78,7 @@ class Editor {
             // Run render function on demand every time the canvas is resized
             const observer = new ResizeObserver(entries => {
                 for (const entry of entries) {
-                    if (entry.contentBoxSize[0] === undefined) {
-                        throw new Error("Couldn't get content size of the canvas element");
-                    }
-
-                    const width = entry.contentBoxSize[0].inlineSize;
-                    const height = entry.contentBoxSize[0].blockSize;
-                    const canvas = entry.target as HTMLCanvasElement;
-
-                    canvas.width = Math.max(1, Math.min(width, device.limits.maxTextureDimension2D));
-                    canvas.height = Math.max(1, Math.min(height, device.limits.maxTextureDimension2D));
-
-                    Shared.renderer?.render();
+                    this.setNewCanvasSize(device, entry);
                 }
             });
 

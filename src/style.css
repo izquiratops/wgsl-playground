@@ -7,7 +7,6 @@
     --theme-secondary: #C8A1E0; /* Kind of pink/red 2 */
     --theme-bg-lighter: #333840; /* Background for slider or borders */
     --theme-bg: #282C34; /* background */
-    --theme-bg-darker: #333842; /* ????? */
     --theme-stripes-thickness: 72px;
     --default-editor-width: 700px;
 }
@@ -31,20 +30,15 @@ button {
     border: none;
     background: transparent;
     aspect-ratio: 1;
+
     /* Center the SVG */
     display: grid;
     place-content: center;
+
     /* Let the user know it's clickable */
     :hover {
         cursor: pointer;
     }
-}
-
-dialog {
-    background: var(--theme-bg);
-    border: 8px solid black;
-    color: var(--theme-detail);
-    outline: none;
 }
 
 vertical-slider {
@@ -63,9 +57,11 @@ code-editor-toolbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     /* Spacing */
     column-gap: var(--spacing-m);
     padding-inline: var(--spacing-m);
+
     /* Hues */
     background-color: var(--theme-primary);
     border-bottom: 4px solid var(--theme-bg-lighter);
@@ -78,15 +74,34 @@ code-editor-toolbar {
     }
 }
 
+error-modal {
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    height: 100dvh;
+    display: grid;
+    align-items: center;
+}
+
+dialog {
+    background: var(--theme-bg-lighter);
+    border: 4px solid var(--theme-bg);
+    border-radius: 12px;
+    color: var(--theme-detail);
+    outline: none;
+}
+
+dialog::backdrop {
+    background: #7c3e8540;
+    background: radial-gradient(at left top, #7C3E8540, #93AEE740);
+}
+
 #exit-fullscreen-btn {
-    /* Button hanging on the top left corner in fullscreen mode */
     position: fixed;
     top: 0;
     left: 0;
     margin: var(--spacing-m);
 }
-
-/* Components */
 
 .toolbar-actions {
     display: flex;
@@ -131,7 +146,7 @@ code-editor-toolbar {
 
 .polka-dots {
     background-color: var(--theme-bg);
-    background-image: radial-gradient(var(--theme-bg-darker) 1.5px, var(--theme-bg) 1.5px);
+    background-image: radial-gradient(var(--theme-bg-lighter) 1.5px, var(--theme-bg) 1.5px);
     background-size: 30px 30px;
 }
 
